@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>League Table</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: radial-gradient(circle at top, #f5f5ff, #e2e8f0);
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      background: #ffffff;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+      padding: 1.75rem 1.75rem 2.25rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      letter-spacing: 0.03em;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .table-wrapper {
+      margin-top: 0.75rem;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    thead {
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 0.9rem;
+      text-align: center;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    th {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+    }
+
+    th.team,
+    td.team {
+      text-align: left;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: #ffffff;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    tbody tr:hover {
+      background: #e0f2fe;
+    }
+
+    .pos {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .team-name {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .team-note {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .gd-positive {
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .gd-negative {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .footer-note {
+      margin-top: 0.9rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .legend {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #e5e7eb;
+      font-size: 0.75rem;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+    }
+
+    .legend-dot--champions {
+      background: #22c55e;
+    }
+
+    .legend-dot--relegation {
+      background: #ef4444;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 1.25rem 1rem 1.75rem;
+        border-radius: 1.25rem;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .subtitle {
+        font-size: 0.8rem;
+      }
+
+      th,
+      td {
+        padding: 0.55rem 0.7rem;
+        font-size: 0.8rem;
+      }
+
+      .footer-note {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <div class="tag">
+          <span class="tag-dot"></span>
+          Live Standings
+        </div>
+        <h1>Premier League Table</h1>
+        <p class="subtitle">Example league table — edit the teams and stats to match your own league.</p>
+      </div>
+      <div class="subtitle">
+        Season: <strong>2025 / 26</strong><br />
+        Updated: <span id="last-updated"></span>
+      </div>
+    </header>
+
+    <section class="table-wrapper">
+      <div class="table-scroll">
+        <table aria-label="League standings table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="team">Team</th>
+              <th>P</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1 -->
+            <tr>
+              <td class="pos">1</td>
+              <td class="team">
+                <span class="team-name">City FC</span>
+                <span class="team-note">Champions</span>
+              </td>
+              <td>38</td>
+              <td>28</td>
+              <td>6</td>
+              <td>4</td>
+              <td>85</td>
+              <td>30</td>
+              <td class="gd-positive">+55</td>
+              <td><strong>90</strong></td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr>
+              <td class="pos">2</td>
+              <td class="team">
+                <span class="team-name">United FC</span>
+                <span class="team-note">Europe</span>
+              </td>
+              <td>38</td>
+              <td>25</td>
+              <td>7</td>
+              <td>6</td>
+              <td>76</td>
+              <td>35</td>
+              <td class="gd-positive">+41</td>
+              <td><strong>82</strong></td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr>
+              <td class="pos">3</td>
+              <td class="team">
+                <span class="team-name">Rovers</span>
+                <span class="team-note">Europe</span>
+              </td>
+              <td>38</td>
+              <td>22</td>
+              <td>9</td>
+              <td>7</td>
+              <td>69</td>
+              <td>40</td>
+              <td class="gd-positive">+29</td>
+              <td><strong>75</strong></td>
+            </tr>
+
+            <!-- Row 4 -->
+            <tr>
+              <td class="pos">4</td>
+              <td class="team">
+                <span class="team-name">Athletic</span>
+              </td>
+              <td>38</td>
+              <td>19</td>
+              <td>10</td>
+              <td>9</td>
+              <td>60</td>
+              <td>42</td>
+              <td class="gd-positive">+18</td>
+              <td><strong>67</strong></td>
+            </tr>
+
+            <!-- Row 5 -->
+            <tr>
+              <td class="pos">5</td>
+              <td class="team">
+                <span class="team-name">Wanderers</span>
+              </td>
+              <td>38</td>
+              <td>17</td>
+              <td>11</td>
+              <td>10</td>
+              <td>55</td>
+              <td>44</td>
+              <td class="gd-positive">+11</td>
+              <td><strong>62</strong></td>
+            </tr>
+
+            <!-- Row 18 -->
+            <tr>
+              <td class="pos">18</td>
+              <td class="team">
+                <span class="team-name">County</span>
+                <span class="team-note">Relegation</span>
+              </td>
+              <td>38</td>
+              <td>8</td>
+              <td>7</td>
+              <td>23</td>
+              <td>31</td>
+              <td>63</td>
+              <td class="gd-negative">-32</td>
+              <td><strong>31</strong></td>
+            </tr>
+
+            <!-- Row 19 -->
+            <tr>
+              <td class="pos">19</td>
+              <td class="team">
+                <span class="team-name">Albion</span>
+                <span class="team-note">Relegation</span>
+              </td>
+              <td>38</td>
+              <td>7</td>
+              <td>8</td>
+              <td>23</td>
+              <td>29</td>
+              <td>65</td>
+              <td class="gd-negative">-36</td>
+              <td><strong>29</strong></td>
+            </tr>
+
+            <!-- Row 20 -->
+            <tr>
+              <td class="pos">20</td>
+              <td class="team">
+                <span class="team-name">Town FC</span>
+                <span class="team-note">Relegation</span>
+              </td>
+              <td>38</td>
+              <td>5</td>
+              <td>9</td>
+              <td>24</td>
+              <td>25</td>
+              <td>71</td>
+              <td class="gd-negative">-46</td>
+              <td><strong>24</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <div class="legend">
+        <span>Legend:</span>
+        <span class="legend-chip">
+          <span class="legend-dot legend-dot--champions"></span> Champions / Europe
+        </span>
+        <span class="legend-chip">
+          <span class="legend-dot legend-dot--relegation"></span> Relegation
+        </span>
+      </div>
+      <span>Edit this page in your code editor to update team names, matches, and points.</span>
+    </div>
+  </main>
+
+  <script>
+    // Set a simple "last updated" timestamp
+    (function () {
+      const el = document.getElementById("last-updated");
+      if (!el) return;
+
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      el.textContent = formatter.format(now);
+    })();
+  </script>
+</body>
+</html>
