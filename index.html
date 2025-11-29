@@ -29,7 +29,7 @@
       background: #1e293b;
       border-radius: 1.2rem;
       padding: 1.4rem;
-      border: 2px solid black;
+      border: 3px solid black; /* OUTER BORDER 3px */
       box-shadow: 0 8px 20px rgba(0,0,0,0.55);
       color: black;
     }
@@ -71,15 +71,15 @@
       overflow: hidden;
       background: #0f172a;
       margin-top: 1rem;
-      border: 2px solid black;
+      border: 3px solid black; /* OUTER TABLE BORDER */
     }
 
     .table-scroll { overflow-x: auto; }
 
     table {
       width: 100%;
-      border-collapse: separate !important; /* KEY FIX */
-      border-spacing: 0;                   /* No gaps */
+      border-collapse: separate;
+      border-spacing: 0;
       table-layout: fixed;
       min-width: 520px;
     }
@@ -92,12 +92,16 @@
       white-space: nowrap;
       text-align: center;
       color: black;
-      border: 1px solid black;  /* true continuous grid lines */
-      position: relative;
-      background-clip: padding-box; /* colour stays inside border */
+      border: 1px solid black;   /* INNER GRID BORDER (thin) */
+      background-clip: padding-box;
     }
 
-    /* Team column = 30% */
+    th {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
     th.team, td.team {
       width: 30%;
       text-align: left;
@@ -105,17 +109,16 @@
       font-weight: 600;
     }
 
-    /* Stats share remaining 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
 
-    tbody tr:nth-child(odd)  { background: #e2e8f0; }
+    tbody tr:nth-child(odd) { background: #e2e8f0; }
     tbody tr:nth-child(even) { background: #f8fafc; }
 
     tbody tr:hover { background: #dfe6ee; transition: 0.1s ease; }
 
-    /* MOBILE VERSION */
+    /* ---------------- MOBILE VERSION ---------------- */
     @media (max-width: 640px) {
       body { padding: 0.6rem; }
 
@@ -136,7 +139,7 @@
       th, td {
         padding: 0.28rem 0.22rem;
         font-size: 0.7rem;
-        border-width: 1px; /* still crisp */
+        border-width: 1px; /* still thin on mobile */
       }
 
       th.team, td.team { width: 30%; }
