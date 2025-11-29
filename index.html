@@ -65,22 +65,23 @@
     .subtitle { font-size: 0.85rem; }
     .right-meta { text-align: right; font-size: 0.82rem; }
 
+    /* === OUTER TABLE BORDER + ROUNDED CORNERS === */
     .table-wrapper {
       margin-top: 1rem;
+      border-radius: 1rem;
+      overflow: hidden;                 /* clips inner table to rounded edge */
+      background: #0f172a;
+      border: 1px solid black;          /* ★ visible outer border */
     }
 
     .table-scroll { overflow-x: auto; }
 
-    /* === PERFECT CORNER FIX === */
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: collapse;        /* share borders, no doubles */
       table-layout: fixed;
       min-width: 520px;
-
-      border: 1px solid black;
-      border-radius: 1rem;     /* <-- key */
-      overflow: hidden;        /* <-- key */
+      border: none;                     /* no extra outer border */
     }
 
     thead { background: #1e293b; }
@@ -90,9 +91,9 @@
       font-size: 0.85rem;
       white-space: nowrap;
       text-align: center;
-      border: 1px solid black;
-      color: black;
+      border: 1px solid black;          /* inner grid lines */
       background-clip: padding-box;
+      color: black;
     }
 
     th {
@@ -101,13 +102,16 @@
       letter-spacing: 0.12em;
     }
 
+    /* Team column ~30% */
     th.team, td.team {
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
+      padding-right: 0.25rem;
       font-weight: 600;
     }
 
+    /* 9 stat columns share 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
@@ -117,15 +121,37 @@
       transition: 0.1s ease;
     }
 
+    /* ---------------- MOBILE VERSION ---------------- */
     @media (max-width: 640px) {
-      .page { padding: 0.8rem; }
+      body { padding: 0.6rem; }
+
+      .page {
+        padding: 0.8rem;
+        border-radius: 0.9rem;
+      }
+
       header { flex-direction: column; gap: 0.6rem; }
+
       .tag { font-size: 0.58rem; padding: 0.22rem 0.45rem; }
       h1 { font-size: 1.1rem; }
       .subtitle { font-size: 0.7rem; }
       .right-meta { font-size: 0.7rem; }
-      table { min-width: 100%; border-radius: 0.8rem; }
-      th, td { padding: 0.28rem 0.22rem; font-size: 0.7rem; }
+
+      .table-wrapper {
+        margin-top: 0.7rem;
+        border-radius: 0.8rem;
+      }
+
+      table { min-width: 100%; }
+
+      th, td {
+        padding: 0.28rem 0.22rem;
+        font-size: 0.7rem;
+        border-width: 1px;
+      }
+
+      th.team, td.team { width: 30%; }
+      th.stat, td.stat { width: calc(70% / 9); }
     }
   </style>
 </head>
@@ -138,6 +164,7 @@
         <h1>Premier League</h1>
         <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
       </div>
+
       <div class="right-meta">
         Season: <strong>1</strong><br />
         Last updated: <strong id="last-updated"></strong>
@@ -225,6 +252,7 @@
       const text = await res.text();
       const teams = parseCsv(text);
       renderTable(teams);
+
       document.getElementById("last-updated").textContent =
         new Date().toLocaleString();
     }
