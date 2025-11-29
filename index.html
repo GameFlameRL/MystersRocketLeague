@@ -68,19 +68,22 @@
     .table-wrapper {
       margin-top: 1rem;
       border-radius: 1rem;
-      overflow: hidden; /* smooth corners */
+      overflow: hidden; 
       background: #0f172a;
+
+      /* ★ Soft outline instead of a border */
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
     .table-scroll { overflow-x: auto; }
 
-    /* --- BORDERLESS TABLE --- */
+    /* --- BORDERLESS TABLE CLEAN LOOK --- */
     table {
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
       min-width: 520px;
-      border: none; /* removed */
+      border: none;
     }
 
     thead {
@@ -92,7 +95,7 @@
       font-size: 0.85rem;
       white-space: nowrap;
       text-align: center;
-      border: none; /* ★ removed all borders */
+      border: none;
       color: black;
     }
 
@@ -102,6 +105,18 @@
       letter-spacing: 0.12em;
     }
 
+    /* Thin separators */
+    thead tr {
+      border-bottom: 1px solid rgba(0,0,0,0.45);
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(0,0,0,0.3);
+    }
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    /* Team column ~30% */
     th.team, td.team {
       width: 30%;
       text-align: left;
@@ -110,6 +125,7 @@
       font-weight: 600;
     }
 
+    /* Stat columns share remaining 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
