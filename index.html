@@ -29,7 +29,7 @@
       background: #1e293b;
       border-radius: 1.2rem;
       padding: 1.4rem;
-      border: 1px solid black; /* outer border = 1px */
+      border: 1px solid black; /* 1px outer card border */
       box-shadow: 0 8px 20px rgba(0,0,0,0.55);
       color: black;
     }
@@ -71,17 +71,18 @@
       overflow: hidden;
       background: #0f172a;
       margin-top: 1rem;
-      border: 1px solid black; /* outer table border = 1px */
+      /* no border here – we let the table handle the outline */
     }
 
     .table-scroll { overflow-x: auto; }
 
+    /* === TABLE GRID (all lines 1px, no doubles) === */
     table {
       width: 100%;
-      border-collapse: separate !important;
-      border-spacing: 0;
+      border-collapse: collapse;   /* share borders so no double thickness */
       table-layout: fixed;
       min-width: 520px;
+      border: 1px solid black;     /* single outer border */
     }
 
     thead { background: #1e293b; }
@@ -91,7 +92,7 @@
       font-size: 0.85rem;
       white-space: nowrap;
       text-align: center;
-      border: 1px solid black; /* inner grid lines = 1px */
+      border: 1px solid black;     /* 1px internal grid lines */
       background-clip: padding-box;
       color: black;
     }
@@ -102,25 +103,29 @@
       letter-spacing: 0.12em;
     }
 
+    /* Team column = ~30% width */
     th.team, td.team {
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
+      padding-right: 0.25rem;
       font-weight: 600;
     }
 
+    /* Remaining 70% shared equally by 9 stat columns */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
 
-    tbody tr:nth-child(odd)  { background: #e2e8f0; }
-    tbody tr:nth-child(even) { background: #f8fafc; }
+    /* No row-based background colours here – all colour comes from JS per-cell */
 
-    tbody tr:hover { background: #dfe6ee; transition: 0.1s ease; }
+    tbody tr:hover {
+      filter: brightness(0.95);
+      transition: 0.1s ease;
+    }
 
     /* ---------------- MOBILE VERSION ---------------- */
     @media (max-width: 640px) {
-
       body { padding: 0.6rem; }
 
       .page {
@@ -206,7 +211,7 @@
         ga: cols[7],
         gd: cols[8],
         pts: cols[9],
-        colour: cols[10]
+        colour: cols[10] // hex row colour from sheet
       }));
     }
 
@@ -216,8 +221,6 @@
 
       teams.forEach(t => {
         const row = document.createElement("tr");
-
-        if (t.colour) row.style.backgroundColor = t.colour;
 
         row.innerHTML = `
           <td class="stat">${t.pos}</td>
@@ -232,6 +235,13 @@
           <td class="stat"><strong>${t.pts}</strong></td>
         `;
 
+        // Apply the row colour to each cell individually
+        if (t.colour) {
+          Array.from(row.children).forEach(cell => {
+            cell.style.backgroundColor = t.colour;
+          });
+        }
+
         tbody.appendChild(row);
       });
     }
@@ -241,6 +251,7 @@
       const text = await res.text();
       const teams = parseCsv(text);
       renderTable(teams);
+
       document.getElementById("last-updated").textContent =
         new Date().toLocaleString();
     }
