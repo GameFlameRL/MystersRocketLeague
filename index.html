@@ -29,7 +29,7 @@
       background: #1e293b;
       border-radius: 1.2rem;
       padding: 1.4rem;
-      /* shadow removed */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.55);
     }
 
     header {
@@ -70,14 +70,17 @@
       border-radius: 1rem;
       overflow: hidden;
       background: #0f172a;
-
-      /* outline/shadow removed */
-      box-shadow: none;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
     .table-scroll {
-      overflow-x: auto;
+      overflow-x: scroll;        /* ★ always scrollable, never bounces */
       overflow-y: visible;
+
+      /* ★ Hide scrollbar but keep its reserved space */
+    }
+    .table-scroll::-webkit-scrollbar {
+      height: 0px;               /* ★ scrollbar invisible */
     }
 
     /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
