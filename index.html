@@ -70,14 +70,15 @@
       border-radius: 1rem;
       overflow: hidden;
       background: #0f172a;
-
-      /* Soft outline instead of a hard border */
       box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
     .table-scroll {
-      overflow-x: auto;   /* horizontal scroll when needed */
-      overflow-y: visible;/* ★ let page handle vertical scroll */
+      overflow-x: auto;
+      overflow-y: visible;
+
+      /* ★ FIX VERTICAL JUMP (THE IMPORTANT PART) */
+      scrollbar-gutter: stable both-edges;
     }
 
     /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
@@ -89,9 +90,7 @@
       border: none;
     }
 
-    thead {
-      background: #1e293b;
-    }
+    thead { background: #1e293b; }
 
     th, td {
       padding: 0.45rem 0.25rem;
@@ -109,23 +108,16 @@
     }
 
     /* Horizontal thin separators */
-    thead tr {
-      border-bottom: 1px solid rgba(0,0,0,0.45);
-    }
-    tbody tr {
-      border-bottom: 1px solid rgba(0,0,0,0.3);
-    }
-    tbody tr:last-child {
-      border-bottom: none;
-    }
+    thead tr { border-bottom: 1px solid rgba(0,0,0,0.45); }
+    tbody tr { border-bottom: 1px solid rgba(0,0,0,0.3); }
+    tbody tr:last-child { border-bottom: none; }
 
-    /* Vertical thin separators */
+    /* Vertical separators */
     th + th,
     td + td {
       border-left: 1px solid rgba(0,0,0,0.25);
     }
 
-    /* Team column ~30% */
     th.team, td.team {
       width: 30%;
       text-align: left;
@@ -134,7 +126,6 @@
       font-weight: 600;
     }
 
-    /* Stat columns share remaining 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
@@ -148,20 +139,14 @@
     @media (max-width: 640px) {
       body { padding: 0.6rem; }
 
-      .page {
-        padding: 0.8rem;
-        border-radius: 0.9rem;
-      }
-
+      .page { padding: 0.8rem; border-radius: 0.9rem; }
       header { flex-direction: column; gap: 0.6rem; }
-
       .tag { font-size: 0.58rem; padding: 0.22rem 0.45rem; }
       h1 { font-size: 1.1rem; }
       .subtitle { font-size: 0.7rem; }
       .right-meta { font-size: 0.7rem; }
 
       .table-wrapper { border-radius: 0.8rem; }
-
       table { min-width: 100%; }
 
       th, td {
