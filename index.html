@@ -76,7 +76,7 @@
 
     .table-wrapper {
       border-radius: 1rem;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid black; /* outer border */
       overflow: hidden;
       background: #0f172a;
       margin-top: 1rem;
@@ -84,12 +84,13 @@
 
     .table-scroll { overflow-x: auto; }
 
-    /* ★ Equal spacing on DESKTOP and MOBILE */
+    /* ★ Equal spacing + borders */
     table {
       width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;   /* key: equal spacing */
-      min-width: 520px;      /* allows scroll if too tight */
+      table-layout: fixed;
+      border-collapse: collapse; /* merges borders cleanly */
+      min-width: 520px;
+      border: 1px solid black;
     }
 
     thead { background: #1e293b; }
@@ -100,6 +101,7 @@
       white-space: nowrap;
       text-align: center;
       color: black;
+      border: 1px solid black; /* ★ thin black row lines */
     }
 
     th {
@@ -108,7 +110,7 @@
       letter-spacing: 0.12em;
     }
 
-    /* Team column = 30% width, left aligned */
+    /* Team column = 30% */
     th.team, td.team {
       width: 30%;
       text-align: left;
@@ -117,29 +119,25 @@
       font-weight: 600;
     }
 
-    /* Stat columns share remaining 70% evenly (9 columns) */
+    /* Stats share remaining 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
     }
 
     tbody tr:nth-child(odd)  { background: #e2e8f0; }
     tbody tr:nth-child(even) { background: #f8fafc; }
 
     tbody tr:hover {
-      background: #cbd5e1;
+      background: #dfe6ee;
       transition: 0.1s ease;
     }
 
-    /* ---------------- MOBILE TWEAKS (same spacing logic, smaller) ---------------- */
+    /* ---------------- MOBILE VERSION ---------------- */
     @media (max-width: 640px) {
-      body {
-        padding: 0.6rem;
-      }
+
+      body { padding: 0.6rem; }
 
       .page {
-        max-width: 100%;
         padding: 0.8rem;
         border-radius: 0.9rem;
       }
@@ -155,42 +153,25 @@
         padding: 0.22rem 0.45rem;
       }
 
-      h1 {
-        font-size: 1.1rem;
-      }
+      h1 { font-size: 1.1rem; }
+      .subtitle { font-size: 0.7rem; }
+      .right-meta { font-size: 0.7rem; }
 
-      .subtitle {
-        font-size: 0.7rem;
-      }
+      .table-wrapper { margin-top: 0.7rem; }
 
-      .right-meta {
-        font-size: 0.7rem;
-      }
+      table { min-width: 100%; }
 
-      .table-wrapper {
-        margin-top: 0.7rem;
-      }
-
-      table {
-        min-width: 100%;
-      }
-
-      th,
-      td {
+      th, td {
         padding: 0.28rem 0.22rem;
         font-size: 0.7rem;
       }
 
       th.team, td.team {
         width: 30%;
-        padding-left: 0.22rem;
-        padding-right: 0.22rem;
       }
 
       th.stat, td.stat {
         width: calc(70% / 9);
-        padding-left: 0.22rem;
-        padding-right: 0.22rem;
       }
     }
   </style>
@@ -253,7 +234,7 @@
         ga: cols[7],
         gd: cols[8],
         pts: cols[9],
-        colour: cols[10],
+        colour: cols[10]
       }));
     }
 
