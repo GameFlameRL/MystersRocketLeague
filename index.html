@@ -61,8 +61,8 @@
       color: black;
     }
 
-    .subtitle { font-size: 0.85rem; }
-    .right-meta { text-align: right; font-size: 0.82rem; }
+    .subtitle { font-size: 0.85rem; color: black; }
+    .right-meta { text-align: right; font-size: 0.82rem; color: black; }
 
     /* --- TABLE WRAPPER --- */
     .table-wrapper {
@@ -71,13 +71,16 @@
       overflow: hidden;
       background: #0f172a;
 
-      /* Soft outline instead of a border */
+      /* Soft outline instead of a hard border */
       box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
-    .table-scroll { overflow-x: auto; }
+    .table-scroll {
+      overflow-x: auto;   /* horizontal scroll when needed */
+      overflow-y: visible;/* ★ let page handle vertical scroll */
+    }
 
-    /* --- CLEAN BORDERLESS TABLE WITH THIN SEPARATORS --- */
+    /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -116,8 +119,9 @@
       border-bottom: none;
     }
 
-    /* ★ Vertical thin separators (new) */
-    th + th, td + td {
+    /* Vertical thin separators */
+    th + th,
+    td + td {
       border-left: 1px solid rgba(0,0,0,0.25);
     }
 
