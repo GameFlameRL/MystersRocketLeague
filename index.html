@@ -29,7 +29,7 @@
       background: #1e293b;
       border-radius: 1.2rem;
       padding: 1.4rem;
-      border: 1px solid black; /* 1px outer card border */
+      /* removed card border to avoid double edges */
       box-shadow: 0 8px 20px rgba(0,0,0,0.55);
       color: black;
     }
@@ -68,21 +68,21 @@
 
     .table-wrapper {
       border-radius: 1rem;
-      overflow: hidden;
+      overflow: hidden;         /* clips table to rounded corners */
       background: #0f172a;
       margin-top: 1rem;
-      /* no border here – we let the table handle the outline */
+      /* no border here – corners will be made from cell borders */
     }
 
     .table-scroll { overflow-x: auto; }
 
-    /* === TABLE GRID (all lines 1px, no doubles) === */
+    /* === GRID: all lines 1px, corners match === */
     table {
       width: 100%;
-      border-collapse: collapse;   /* share borders so no double thickness */
+      border-collapse: collapse;  /* share borders, no doubles */
       table-layout: fixed;
       min-width: 520px;
-      border: 1px solid black;     /* single outer border */
+      border: none;               /* rely ONLY on cell borders */
     }
 
     thead { background: #1e293b; }
@@ -92,7 +92,7 @@
       font-size: 0.85rem;
       white-space: nowrap;
       text-align: center;
-      border: 1px solid black;     /* 1px internal grid lines */
+      border: 1px solid black;    /* single 1px grid line everywhere */
       background-clip: padding-box;
       color: black;
     }
@@ -103,7 +103,7 @@
       letter-spacing: 0.12em;
     }
 
-    /* Team column = ~30% width */
+    /* Team column ~30% */
     th.team, td.team {
       width: 30%;
       text-align: left;
@@ -112,12 +112,10 @@
       font-weight: 600;
     }
 
-    /* Remaining 70% shared equally by 9 stat columns */
+    /* 9 stat columns share 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
-
-    /* No row-based background colours here – all colour comes from JS per-cell */
 
     tbody tr:hover {
       filter: brightness(0.95);
@@ -211,7 +209,7 @@
         ga: cols[7],
         gd: cols[8],
         pts: cols[9],
-        colour: cols[10] // hex row colour from sheet
+        colour: cols[10]
       }));
     }
 
