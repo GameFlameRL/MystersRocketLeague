@@ -12,7 +12,11 @@
       color: black;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       min-height: 100vh;
@@ -21,6 +25,7 @@
       align-items: flex-start;
       background: radial-gradient(circle at top, #0f172a 0%, #020617 50%, #000 100%);
       padding: 1.5rem;
+      overflow-x: hidden; /* prevent any sideways scroll */
     }
 
     .page {
@@ -61,8 +66,16 @@
       color: black;
     }
 
-    .subtitle { font-size: 0.85rem; color: black; }
-    .right-meta { text-align: right; font-size: 0.82rem; color: black; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: black;
+    }
+
+    .right-meta {
+      text-align: right;
+      font-size: 0.82rem;
+      color: black;
+    }
 
     /* --- TABLE WRAPPER --- */
     .table-wrapper {
@@ -70,31 +83,29 @@
       border-radius: 1rem;
       overflow: hidden;
       background: #0f172a;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.45); /* soft outline */
     }
 
+    /* method 3: no inner scroll area, let page handle it smoothly */
     .table-scroll {
-      overflow-x: scroll;        /* ★ always scrollable, never bounces */
-      overflow-y: visible;
-
-      /* ★ Hide scrollbar but keep its reserved space */
-    }
-    .table-scroll::-webkit-scrollbar {
-      height: 0px;               /* ★ scrollbar invisible */
+      overflow: visible;
     }
 
     /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
     table {
       width: 100%;
+      min-width: 0;              /* allow it to shrink with container */
       border-collapse: collapse;
       table-layout: fixed;
-      min-width: 520px;
       border: none;
     }
 
-    thead { background: #1e293b; }
+    thead {
+      background: #1e293b;
+    }
 
-    th, td {
+    th,
+    td {
       padding: 0.45rem 0.25rem;
       font-size: 0.85rem;
       white-space: nowrap;
@@ -109,18 +120,28 @@
       letter-spacing: 0.12em;
     }
 
-    /* Horizontal separators */
-    thead tr { border-bottom: 1px solid rgba(0,0,0,0.45); }
-    tbody tr { border-bottom: 1px solid rgba(0,0,0,0.3); }
-    tbody tr:last-child { border-bottom: none; }
+    /* Horizontal thin separators */
+    thead tr {
+      border-bottom: 1px solid rgba(0,0,0,0.45);
+    }
 
-    /* Vertical separators */
+    tbody tr {
+      border-bottom: 1px solid rgba(0,0,0,0.3);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    /* Vertical thin separators */
     th + th,
     td + td {
       border-left: 1px solid rgba(0,0,0,0.25);
     }
 
-    th.team, td.team {
+    /* Team column ~30% */
+    th.team,
+    td.team {
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
@@ -128,7 +149,9 @@
       font-weight: 600;
     }
 
-    th.stat, td.stat {
+    /* Stat columns share remaining 70% */
+    th.stat,
+    td.stat {
       width: calc(70% / 9);
     }
 
@@ -139,25 +162,47 @@
 
     /* ---------------- MOBILE ---------------- */
     @media (max-width: 640px) {
-      body { padding: 0.6rem; }
+      body {
+        padding: 0.6rem;
+      }
 
       .page {
         padding: 0.8rem;
         border-radius: 0.9rem;
       }
 
-      header { flex-direction: column; gap: 0.6rem; }
+      header {
+        flex-direction: column;
+        gap: 0.6rem;
+      }
 
-      .tag { font-size: 0.58rem; padding: 0.22rem 0.45rem; }
-      h1 { font-size: 1.1rem; }
-      .subtitle { font-size: 0.7rem; }
-      .right-meta { font-size: 0.7rem; }
+      .tag {
+        font-size: 0.58rem;
+        padding: 0.22rem 0.45rem;
+      }
 
-      .table-wrapper { border-radius: 0.8rem; }
+      h1 {
+        font-size: 1.1rem;
+      }
 
-      table { min-width: 100%; }
+      .subtitle {
+        font-size: 0.7rem;
+      }
 
-      th, td {
+      .right-meta {
+        font-size: 0.7rem;
+      }
+
+      .table-wrapper {
+        border-radius: 0.8rem;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      th,
+      td {
         padding: 0.28rem 0.22rem;
         font-size: 0.7rem;
       }
@@ -247,7 +292,7 @@
         `;
 
         if (t.colour) {
-          Array.from(row.children).forEach(cell => {
+          Array.from(row.children).forEach((cell) => {
             cell.style.backgroundColor = t.colour;
           });
         }
