@@ -29,7 +29,6 @@
       background: #1e293b;
       border-radius: 1.2rem;
       padding: 1.4rem;
-      /* removed card border to avoid double edges */
       box-shadow: 0 8px 20px rgba(0,0,0,0.55);
       color: black;
     }
@@ -67,22 +66,21 @@
     .right-meta { text-align: right; font-size: 0.82rem; }
 
     .table-wrapper {
-      border-radius: 1rem;
-      overflow: hidden;         /* clips table to rounded corners */
-      background: #0f172a;
       margin-top: 1rem;
-      /* no border here – corners will be made from cell borders */
     }
 
     .table-scroll { overflow-x: auto; }
 
-    /* === GRID: all lines 1px, corners match === */
+    /* === PERFECT CORNER FIX === */
     table {
       width: 100%;
-      border-collapse: collapse;  /* share borders, no doubles */
+      border-collapse: collapse;
       table-layout: fixed;
       min-width: 520px;
-      border: none;               /* rely ONLY on cell borders */
+
+      border: 1px solid black;
+      border-radius: 1rem;     /* <-- key */
+      overflow: hidden;        /* <-- key */
     }
 
     thead { background: #1e293b; }
@@ -92,9 +90,9 @@
       font-size: 0.85rem;
       white-space: nowrap;
       text-align: center;
-      border: 1px solid black;    /* single 1px grid line everywhere */
-      background-clip: padding-box;
+      border: 1px solid black;
       color: black;
+      background-clip: padding-box;
     }
 
     th {
@@ -103,16 +101,13 @@
       letter-spacing: 0.12em;
     }
 
-    /* Team column ~30% */
     th.team, td.team {
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
-      padding-right: 0.25rem;
       font-weight: 600;
     }
 
-    /* 9 stat columns share 70% */
     th.stat, td.stat {
       width: calc(70% / 9);
     }
@@ -122,32 +117,15 @@
       transition: 0.1s ease;
     }
 
-    /* ---------------- MOBILE VERSION ---------------- */
     @media (max-width: 640px) {
-      body { padding: 0.6rem; }
-
-      .page {
-        padding: 0.8rem;
-        border-radius: 0.9rem;
-      }
-
+      .page { padding: 0.8rem; }
       header { flex-direction: column; gap: 0.6rem; }
-
       .tag { font-size: 0.58rem; padding: 0.22rem 0.45rem; }
       h1 { font-size: 1.1rem; }
       .subtitle { font-size: 0.7rem; }
       .right-meta { font-size: 0.7rem; }
-
-      table { min-width: 100%; }
-
-      th, td {
-        padding: 0.28rem 0.22rem;
-        font-size: 0.7rem;
-        border-width: 1px;
-      }
-
-      th.team, td.team { width: 30%; }
-      th.stat, td.stat { width: calc(70% / 9); }
+      table { min-width: 100%; border-radius: 0.8rem; }
+      th, td { padding: 0.28rem 0.22rem; font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -160,7 +138,6 @@
         <h1>Premier League</h1>
         <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
       </div>
-
       <div class="right-meta">
         Season: <strong>1</strong><br />
         Last updated: <strong id="last-updated"></strong>
@@ -233,7 +210,6 @@
           <td class="stat"><strong>${t.pts}</strong></td>
         `;
 
-        // Apply the row colour to each cell individually
         if (t.colour) {
           Array.from(row.children).forEach(cell => {
             cell.style.backgroundColor = t.colour;
@@ -249,7 +225,6 @@
       const text = await res.text();
       const teams = parseCsv(text);
       renderTable(teams);
-
       document.getElementById("last-updated").textContent =
         new Date().toLocaleString();
     }
