@@ -68,16 +68,16 @@
     .table-wrapper {
       margin-top: 1rem;
       border-radius: 1rem;
-      overflow: hidden; 
+      overflow: hidden;
       background: #0f172a;
 
-      /* ★ Soft outline instead of a border */
+      /* Soft outline instead of a border */
       box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
     .table-scroll { overflow-x: auto; }
 
-    /* --- BORDERLESS TABLE CLEAN LOOK --- */
+    /* --- CLEAN BORDERLESS TABLE WITH THIN SEPARATORS --- */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -105,7 +105,7 @@
       letter-spacing: 0.12em;
     }
 
-    /* Thin separators */
+    /* Horizontal thin separators */
     thead tr {
       border-bottom: 1px solid rgba(0,0,0,0.45);
     }
@@ -114,6 +114,11 @@
     }
     tbody tr:last-child {
       border-bottom: none;
+    }
+
+    /* ★ Vertical thin separators (new) */
+    th + th, td + td {
+      border-left: 1px solid rgba(0,0,0,0.25);
     }
 
     /* Team column ~30% */
