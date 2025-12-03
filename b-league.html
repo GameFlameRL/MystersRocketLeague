@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mysters B League Table</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.4;
+      color: black;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: radial-gradient(circle at top, #0f172a 0%, #020617 50%, #000 100%);
+      padding: 0.75rem;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 650px;
+      background: #1e293b;
+      border-radius: 1.2rem;
+      padding: 1rem 1rem 0.9rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.6rem;
+      background: linear-gradient(90deg, #ff0000, #ffd000);
+      border-radius: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 220px;
+    }
+
+    h1 {
+      font-size: 1.55rem;
+      margin-top: 0.3rem;
+      text-transform: uppercase;
+      color: black;
+    }
+
+    .subtitle {
+      font-size: 0.82rem;
+      color: black;
+    }
+
+    .right-meta {
+      text-align: right;
+      font-size: 0.8rem;
+      color: black;
+    }
+
+    /* Simple nav between leagues */
+    .nav {
+      width: 100%;
+      margin-top: 0.25rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.8rem;
+    }
+    .nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-right: 0.25rem;
+      background: rgba(15,23,42,0.6);
+    }
+    .nav a.active {
+      background: #facc15;
+      color: #000;
+      font-weight: 700;
+    }
+
+    /* --- TABLE WRAPPER --- */
+    .table-wrapper {
+      margin-top: 0.5rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.45); /* soft outline */
+    }
+
+    .table-scroll {
+      overflow: visible; /* let page handle scroll */
+    }
+
+    /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
+    table {
+      width: 100%;
+      min-width: 0;
+      border-collapse: collapse;
+      table-layout: fixed;
+      border: none;
+    }
+
+    thead {
+      background: #1e293b;
+    }
+
+    th,
+    td {
+      padding: 0.4rem 0.22rem;
+      font-size: 0.82rem;
+      white-space: nowrap;
+      text-align: center;
+      border: none;
+      color: black;
+    }
+
+    th {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Horizontal thin separators */
+    thead tr {
+      border-bottom: 1px solid rgba(0,0,0,0.45);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(0,0,0,0.3);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    /* Vertical thin separators */
+    th + th,
+    td + td {
+      border-left: 1px solid rgba(0,0,0,0.25);
+    }
+
+    /* Team column ~30% */
+    th.team,
+    td.team {
+      width: 30%;
+      text-align: left;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Stat columns share remaining 70% */
+    th.stat,
+    td.stat {
+      width: calc(70% / 9);
+    }
+
+    tbody tr:hover {
+      filter: brightness(0.95);
+      transition: 0.1s ease;
+    }
+
+    /* ---------------- MOBILE ---------------- */
+    @media (max-width: 640px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .page {
+        padding: 0.7rem 0.7rem 0.6rem;
+        border-radius: 0.9rem;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tag {
+        font-size: 0.58rem;
+        padding: 0.2rem 0.4rem;
+        min-width: 0;
+      }
+
+      h1 {
+        font-size: 1.05rem;
+      }
+
+      .subtitle {
+        font-size: 0.68rem;
+      }
+
+      .right-meta {
+        font-size: 0.68rem;
+      }
+
+      .table-wrapper {
+        border-radius: 0.8rem;
+        margin-top: 0.4rem;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      th,
+      td {
+        padding: 0.24rem 0.18rem;
+        font-size: 0.68rem;
+      }
+
+      .nav {
+        font-size: 0.72rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <div class="tag">Mysters Rocket League</div>
+        <h1>B League</h1>
+        <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
+        <div class="nav">
+          <a href="index.html">Premier League</a>
+          <a href="b-league.html" class="active">B League</a>
+        </div>
+      </div>
+
+      <div class="right-meta">
+        Season: <strong>1</strong><br />
+        Last updated: <strong id="last-updated"></strong>
+      </div>
+    </header>
+
+    <section class="table-wrapper">
+      <div class="table-scroll">
+        <table aria-label="B League Standings">
+          <thead>
+            <tr>
+              <th class="stat">#</th>
+              <th class="team">Team</th>
+              <th class="stat">P</th>
+              <th class="stat">W</th>
+              <th class="stat">D</th>
+              <th class="stat">L</th>
+              <th class="stat">GF</th>
+              <th class="stat">GA</th>
+              <th class="stat">GD</th>
+              <th class="stat">Pts</th>
+            </tr>
+          </thead>
+          <tbody id="league-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const SHEET_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=629194466";
+
+    function parseCsv(text) {
+      const rows = text.trim().split("\n").map(r => r.split(","));
+      const [header, ...data] = rows;
+
+      return data.map(cols => ({
+        pos: cols[0],
+        team: cols[1],
+        played: cols[2],
+        wins: cols[3],
+        draws: cols[4],
+        losses: cols[5],
+        gf: cols[6],
+        ga: cols[7],
+        gd: cols[8],
+        pts: cols[9],
+        colour: cols[10]
+      }));
+    }
+
+    function renderTable(teams) {
+      const tbody = document.getElementById("league-body");
+      tbody.innerHTML = "";
+
+      teams.forEach((t) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td class="stat">${t.pos}</td>
+          <td class="team">${t.team}</td>
+          <td class="stat">${t.played}</td>
+          <td class="stat">${t.wins}</td>
+          <td class="stat">${t.draws}</td>
+          <td class="stat">${t.losses}</td>
+          <td class="stat">${t.gf}</td>
+          <td class="stat">${t.ga}</td>
+          <td class="stat">${t.gd}</td>
+          <td class="stat"><strong>${t.pts}</strong></td>
+        `;
+
+        if (t.colour) {
+          Array.from(row.children).forEach((cell) => {
+            cell.style.backgroundColor = t.colour;
+          });
+        }
+
+        tbody.appendChild(row);
+      });
+    }
+
+    async function loadLeagueTable() {
+      const res = await fetch(SHEET_CSV_URL);
+      const text = await res.text();
+      const teams = parseCsv(text);
+      renderTable(teams);
+
+      document.getElementById("last-updated").textContent =
+        new Date().toLocaleString();
+    }
+
+    loadLeagueTable();
+  </script>
+</body>
+</html>
