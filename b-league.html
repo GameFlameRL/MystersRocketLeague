@@ -77,7 +77,7 @@
       color: black;
     }
 
-    /* Simple nav between leagues */
+    /* Glowing blue nav */
     .nav {
       width: 100%;
       margin-top: 0.25rem;
@@ -85,39 +85,42 @@
       font-size: 0.8rem;
     }
     .nav a {
-      color: #e5e7eb;
       text-decoration: none;
-      padding: 0.15rem 0.5rem;
+      padding: 0.25rem 0.7rem;
       border-radius: 999px;
-      margin-right: 0.25rem;
-      background: rgba(15,23,42,0.6);
+      margin-right: 0.4rem;
+
+      background: rgba(30,58,138,0.4);
+      color: #cbd5e1;
+      font-weight: 600;
+      transition: 0.2s ease;
+      border: 1px solid rgba(96,165,250,0.4);
+    }
+    .nav a:hover {
+      background: rgba(96,165,250,0.6);
+      color: black;
+      box-shadow: 0 0 10px rgba(96,165,250,0.9), 0 0 20px rgba(96,165,250,0.7);
+      border-color: rgba(147,197,253,0.9);
     }
     .nav a.active {
-      background: #facc15;
-      color: #000;
-      font-weight: 700;
+      background: #1d4ed8;
+      color: white;
+      border: 1px solid #3b82f6;
+      box-shadow: 0 0 12px rgba(59,130,246,0.9), 0 0 20px rgba(96,165,250,0.8);
     }
 
-    /* --- TABLE WRAPPER --- */
     .table-wrapper {
       margin-top: 0.5rem;
       border-radius: 1rem;
       overflow: hidden;
       background: #0f172a;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.45); /* soft outline */
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
-    .table-scroll {
-      overflow: visible; /* let page handle scroll */
-    }
-
-    /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
     table {
       width: 100%;
-      min-width: 0;
       border-collapse: collapse;
       table-layout: fixed;
-      border: none;
     }
 
     thead {
@@ -134,105 +137,34 @@
       color: black;
     }
 
-    th {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
+    th { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; }
 
-    /* Horizontal thin separators */
-    thead tr {
-      border-bottom: 1px solid rgba(0,0,0,0.45);
-    }
+    thead tr { border-bottom: 1px solid rgba(0,0,0,0.45); }
+    tbody tr { border-bottom: 1px solid rgba(0,0,0,0.3); }
+    tbody tr:last-child { border-bottom: none; }
 
-    tbody tr {
-      border-bottom: 1px solid rgba(0,0,0,0.3);
-    }
+    th + th, td + td { border-left: 1px solid rgba(0,0,0,0.25); }
 
-    tbody tr:last-child {
-      border-bottom: none;
-    }
-
-    /* Vertical thin separators */
-    th + th,
-    td + td {
-      border-left: 1px solid rgba(0,0,0,0.25);
-    }
-
-    /* Team column ~30% */
-    th.team,
-    td.team {
+    th.team, td.team {
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
       padding-right: 0.25rem;
       font-weight: 600;
     }
+    th.stat, td.stat { width: calc(70% / 9); }
 
-    /* Stat columns share remaining 70% */
-    th.stat,
-    td.stat {
-      width: calc(70% / 9);
-    }
+    tbody tr:hover { filter: brightness(0.95); transition: 0.1s ease; }
 
-    tbody tr:hover {
-      filter: brightness(0.95);
-      transition: 0.1s ease;
-    }
-
-    /* ---------------- MOBILE ---------------- */
-    @media (max-width: 640px) {
-      body {
-        padding: 0.5rem;
-      }
-
-      .page {
-        padding: 0.7rem 0.7rem 0.6rem;
-        border-radius: 0.9rem;
-      }
-
-      header {
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .tag {
-        font-size: 0.58rem;
-        padding: 0.2rem 0.4rem;
-        min-width: 0;
-      }
-
-      h1 {
-        font-size: 1.05rem;
-      }
-
-      .subtitle {
-        font-size: 0.68rem;
-      }
-
-      .right-meta {
-        font-size: 0.68rem;
-      }
-
-      .table-wrapper {
-        border-radius: 0.8rem;
-        margin-top: 0.4rem;
-      }
-
-      table {
-        min-width: 0;
-      }
-
-      th,
-      td {
-        padding: 0.24rem 0.18rem;
-        font-size: 0.68rem;
-      }
-
-      .nav {
-        font-size: 0.72rem;
-      }
+    @media (max-width:640px){
+      body { padding: 0.5rem; }
+      .page { padding: 0.7rem; border-radius: 0.9rem; }
+      header { flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+      .tag { font-size: 0.58rem; padding: 0.2rem 0.4rem; }
+      h1 { font-size: 1.05rem; }
+      .subtitle, .right-meta { font-size: 0.68rem; }
+      th, td { padding: 0.24rem 0.18rem; font-size: 0.68rem; }
+      .nav { font-size: 0.72rem; }
     }
   </style>
 </head>
@@ -257,25 +189,23 @@
     </header>
 
     <section class="table-wrapper">
-      <div class="table-scroll">
-        <table aria-label="B League Standings">
-          <thead>
-            <tr>
-              <th class="stat">#</th>
-              <th class="team">Team</th>
-              <th class="stat">P</th>
-              <th class="stat">W</th>
-              <th class="stat">D</th>
-              <th class="stat">L</th>
-              <th class="stat">GF</th>
-              <th class="stat">GA</th>
-              <th class="stat">GD</th>
-              <th class="stat">Pts</th>
-            </tr>
-          </thead>
-          <tbody id="league-body"></tbody>
-        </table>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th class="stat">#</th>
+            <th class="team">Team</th>
+            <th class="stat">P</th>
+            <th class="stat">W</th>
+            <th class="stat">D</th>
+            <th class="stat">L</th>
+            <th class="stat">GF</th>
+            <th class="stat">GA</th>
+            <th class="stat">GD</th>
+            <th class="stat">Pts</th>
+          </tr>
+        </thead>
+        <tbody id="league-body"></tbody>
+      </table>
     </section>
   </main>
 
@@ -283,22 +213,21 @@
     const SHEET_CSV_URL =
       "https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=629194466";
 
-    function parseCsv(text) {
-      const rows = text.trim().split("\n").map(r => r.split(","));
-      const [header, ...data] = rows;
-
-      return data.map(cols => ({
-        pos: cols[0],
-        team: cols[1],
-        played: cols[2],
-        wins: cols[3],
-        draws: cols[4],
-        losses: cols[5],
-        gf: cols[6],
-        ga: cols[7],
-        gd: cols[8],
-        pts: cols[9],
-        colour: cols[10]
+    function parseCsv(txt) {
+      const rows = txt.trim().split("\n").map(r => r.split(","));
+      const [, ...data] = rows;
+      return data.map(c => ({
+        pos: c[0],
+        team: c[1],
+        played: c[2],
+        wins: c[3],
+        draws: c[4],
+        losses: c[5],
+        gf: c[6],
+        ga: c[7],
+        gd: c[8],
+        pts: c[9],
+        colour: c[10]
       }));
     }
 
@@ -306,10 +235,9 @@
       const tbody = document.getElementById("league-body");
       tbody.innerHTML = "";
 
-      teams.forEach((t) => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
+      teams.forEach(t => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
           <td class="stat">${t.pos}</td>
           <td class="team">${t.team}</td>
           <td class="stat">${t.played}</td>
@@ -323,26 +251,22 @@
         `;
 
         if (t.colour) {
-          Array.from(row.children).forEach((cell) => {
-            cell.style.backgroundColor = t.colour;
-          });
+          [...tr.children].forEach(td => td.style.background = t.colour);
         }
 
-        tbody.appendChild(row);
+        tbody.appendChild(tr);
       });
     }
 
-    async function loadLeagueTable() {
+    async function load() {
       const res = await fetch(SHEET_CSV_URL);
       const text = await res.text();
-      const teams = parseCsv(text);
-      renderTable(teams);
-
+      renderTable(parseCsv(text));
       document.getElementById("last-updated").textContent =
         new Date().toLocaleString();
     }
 
-    loadLeagueTable();
+    load();
   </script>
 </body>
 </html>
