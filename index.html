@@ -77,38 +77,39 @@
       color: black;
     }
 
-    /* Glowing blue league switcher */
+    /* CLEAN BLUE NAV BUTTONS */
     .nav {
       width: 100%;
       margin-top: 0.25rem;
       margin-bottom: 0.35rem;
       font-size: 0.8rem;
     }
+
     .nav a {
       text-decoration: none;
       padding: 0.25rem 0.7rem;
       border-radius: 999px;
       margin-right: 0.4rem;
 
-      background: rgba(30, 58, 138, 0.4);
-      color: #cbd5e1;
+      background: #1e3a8a;
+      color: #dbeafe;
       font-weight: 600;
-      transition: 0.2s ease;
-      border: 1px solid rgba(96,165,250,0.4);
-    }
-    .nav a:hover {
-      background: rgba(96,165,250,0.6);
-      color: black;
-      box-shadow: 0 0 10px rgba(96,165,250,0.9), 0 0 20px rgba(96,165,250,0.7);
-      border-color: rgba(147,197,253,0.9);
-    }
-    .nav a.active {
-      background: #1d4ed8;
-      color: white;
+      transition: 0.15s ease;
       border: 1px solid #3b82f6;
-      box-shadow: 0 0 12px rgba(59,130,246,0.9), 0 0 20px rgba(96,165,250,0.8);
     }
 
+    .nav a:hover {
+      background: #1e40af;
+      color: white;
+    }
+
+    .nav a.active {
+      background: #3b82f6;
+      color: black;
+      border-color: #60a5fa;
+    }
+
+    /* TABLE WRAPPER */
     .table-wrapper {
       margin-top: 0.5rem;
       border-radius: 1rem;
@@ -117,6 +118,7 @@
       box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
+    /* TABLE */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -127,8 +129,7 @@
       background: #1e293b;
     }
 
-    th,
-    td {
+    th, td {
       padding: 0.4rem 0.22rem;
       font-size: 0.82rem;
       white-space: nowrap;
@@ -146,9 +147,11 @@
     thead tr {
       border-bottom: 1px solid rgba(0,0,0,0.45);
     }
+
     tbody tr {
       border-bottom: 1px solid rgba(0,0,0,0.3);
     }
+
     tbody tr:last-child {
       border-bottom: none;
     }
