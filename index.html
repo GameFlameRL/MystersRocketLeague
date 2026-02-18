@@ -24,7 +24,7 @@
       justify-content: center;
       align-items: flex-start;
       background: radial-gradient(circle at top, #0f172a 0%, #020617 50%, #000 100%);
-      padding: 0.75rem;              /* reduced from 1.5rem */
+      padding: 0.75rem;
       overflow-x: hidden;
     }
 
@@ -33,7 +33,7 @@
       max-width: 650px;
       background: #1e293b;
       border-radius: 1.2rem;
-      padding: 1rem 1rem 0.9rem;      /* reduced from 1.4rem */
+      padding: 1rem 1rem 0.9rem;
       box-shadow: 0 8px 20px rgba(0,0,0,0.55);
     }
 
@@ -41,8 +41,23 @@
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      margin-bottom: 0.6rem;         /* reduced from 1rem */
+      margin-bottom: 0.6rem;
       gap: 0.4rem;
+    }
+
+    /* NEW: left header group (logo + titles) */
+    .left-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    /* NEW: logo styling */
+    .league-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
     }
 
     .tag {
@@ -79,18 +94,17 @@
 
     /* --- TABLE WRAPPER --- */
     .table-wrapper {
-      margin-top: 0.5rem;            /* reduced from 1rem */
+      margin-top: 0.5rem;
       border-radius: 1rem;
       overflow: hidden;
       background: #0f172a;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.45); /* soft outline */
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
     .table-scroll {
-      overflow: visible;             /* let page handle scroll */
+      overflow: visible;
     }
 
-    /* --- CLEAN TABLE WITH THIN SEPARATORS --- */
     table {
       width: 100%;
       min-width: 0;
@@ -105,7 +119,7 @@
 
     th,
     td {
-      padding: 0.4rem 0.22rem;       /* slightly reduced */
+      padding: 0.4rem 0.22rem;
       font-size: 0.82rem;
       white-space: nowrap;
       text-align: center;
@@ -119,7 +133,6 @@
       letter-spacing: 0.12em;
     }
 
-    /* Horizontal thin separators */
     thead tr {
       border-bottom: 1px solid rgba(0,0,0,0.45);
     }
@@ -132,13 +145,11 @@
       border-bottom: none;
     }
 
-    /* Vertical thin separators */
     th + th,
     td + td {
       border-left: 1px solid rgba(0,0,0,0.25);
     }
 
-    /* Team column ~30% */
     th.team,
     td.team {
       width: 30%;
@@ -148,7 +159,6 @@
       font-weight: 600;
     }
 
-    /* Stat columns share remaining 70% */
     th.stat,
     td.stat {
       width: calc(70% / 9);
@@ -174,6 +184,16 @@
         flex-direction: column;
         gap: 0.5rem;
         margin-bottom: 0.5rem;
+      }
+
+      /* NEW: smaller logo on mobile */
+      .left-header {
+        gap: 0.6rem;
+      }
+
+      .league-logo {
+        width: 42px;
+        height: 42px;
       }
 
       .tag {
@@ -215,12 +235,19 @@
 <body>
   <main class="page">
     <header>
-      <div>
-        <div class="tag">Mysters Rocket League</div>
-        <h1>Premier League</h1>
-        <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
+      <!-- LEFT SIDE (LOGO + TITLES) -->
+      <div class="left-header">
+        <!-- Change logo.png if your filename is different -->
+        <img src="logo.png" alt="Mysters League Logo" class="league-logo" />
+
+        <div>
+          <div class="tag">Mysters Rocket League</div>
+          <h1>Premier League</h1>
+          <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
+        </div>
       </div>
 
+      <!-- RIGHT SIDE META -->
       <div class="right-meta">
         Season: <strong>1</strong><br />
         Last updated: <strong id="last-updated"></strong>
