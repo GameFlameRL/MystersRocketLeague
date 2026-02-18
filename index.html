@@ -57,6 +57,11 @@
       width: 95px;
       height: 95px;
       object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .left-text {
+      min-width: 0;
     }
 
     h1 {
@@ -80,8 +85,14 @@
       line-height: 1.6;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
+      flex: 0 0 auto;
       white-space: nowrap;
       padding-top: 0.25rem;
+    }
+
+    .right-meta strong {
+      font-weight: 700;
     }
 
     .table-wrapper {
@@ -142,6 +153,7 @@
       font-weight: 600;
     }
 
+    /* 8 stat columns */
     th.stat,
     td.stat {
       width: calc(70% / 8);
@@ -163,7 +175,9 @@
       header {
         flex-direction: column;
         align-items: flex-start;
+        flex-wrap: wrap;
         gap: 0.5rem;
+        margin-bottom: 0.5rem;
       }
 
       .league-logo {
@@ -195,7 +209,8 @@
     <header>
       <div class="left-header">
         <img src="logo.png" alt="League Logo" class="league-logo" />
-        <div>
+
+        <div class="left-text">
           <h1>Impulse League</h1>
           <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
         </div>
@@ -208,7 +223,7 @@
     </header>
 
     <section class="table-wrapper">
-      <table>
+      <table aria-label="Standings">
         <thead>
           <tr>
             <th class="stat">#</th>
@@ -232,20 +247,23 @@
       "https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=829195735";
 
     function parseCsv(text) {
-      const rows = text.trim().split("\n").map(r => r.split(","));
+      // handle Windows newlines
+      const rows = text.trim().replace(/\r/g, "").split("\n").map(r => r.split(","));
       const [header, ...data] = rows;
 
-      return data.map((cols, index) => ({
-        pos: index + 1,
-        team: cols[0],
-        played: cols[1],
-        wins: cols[2],
-        losses: cols[3],
-        mf: cols[4],
-        ma: cols[5],
-        md: cols[6],
-        pts: cols[7],
-        colour: cols[8]
+      // CSV now includes Position as first column
+      // A Position, B Team, C Played, D Wins, E Losses, F MF, G MA, H MD, I Pts, J Colour
+      return data.map(cols => ({
+        pos: cols[0],
+        team: cols[1],
+        played: cols[2],
+        wins: cols[3],
+        losses: cols[4],
+        mf: cols[5],
+        ma: cols[6],
+        md: cols[7],
+        pts: cols[8],
+        colour: cols[9]
       }));
     }
 
@@ -253,11 +271,11 @@
       const tbody = document.getElementById("league-body");
       tbody.innerHTML = "";
 
-      teams.forEach((t) => {
+      teams.forEach((t, index) => {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-          <td class="stat">${t.pos}</td>
+          <td class="stat">${t.pos || (index + 1)}</td>
           <td class="team">${t.team}</td>
           <td class="stat">${t.played}</td>
           <td class="stat">${t.wins}</td>
