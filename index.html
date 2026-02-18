@@ -40,45 +40,56 @@
     header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      align-items: flex-start;
+      flex-wrap: nowrap;              /* ✅ key: stop desktop wrapping */
       margin-bottom: 0.6rem;
-      gap: 0.6rem;
+      gap: 0.8rem;
     }
 
     .left-header {
       display: flex;
       align-items: center;
       gap: 1rem;
+      min-width: 0;                   /* ✅ allows text to shrink properly */
     }
 
     .league-logo {
       width: 95px;
       height: 95px;
       object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .left-text {
+      min-width: 0;                   /* ✅ prevents weird push/wrap */
     }
 
     h1 {
       font-size: 1.55rem;
       text-transform: uppercase;
       color: black;
+      white-space: nowrap;            /* ✅ keeps IMPULSE LEAGUE on one line */
     }
 
     .subtitle {
       font-size: 0.82rem;
       color: black;
-      margin-top: 0.2rem;
+      margin-top: 0.15rem;
     }
 
-    /* Right meta now stacked neatly */
+    /* Right meta pinned to the right, never drops under on desktop */
     .right-meta {
+      margin-left: auto;              /* ✅ forces it to the far right */
       text-align: right;
       font-size: 0.85rem;
       color: black;
       line-height: 1.6;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      flex: 0 0 auto;
+      white-space: nowrap;            /* ✅ keeps each line intact */
+      padding-top: 0.25rem;           /* slight alignment polish */
     }
 
     .right-meta strong {
@@ -153,6 +164,7 @@
       transition: 0.1s ease;
     }
 
+    /* ---------------- MOBILE ---------------- */
     @media (max-width: 640px) {
       body {
         padding: 0.5rem;
@@ -164,8 +176,11 @@
       }
 
       header {
-        flex-direction: column;
+        flex-direction: column;       /* ✅ on mobile: stack */
         align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
       }
 
       .league-logo {
@@ -175,11 +190,19 @@
 
       h1 {
         font-size: 1.05rem;
+        white-space: normal;          /* allow wrap on small screens */
       }
 
-      .subtitle,
+      .subtitle {
+        font-size: 0.68rem;
+      }
+
       .right-meta {
         font-size: 0.68rem;
+        margin-left: 0;
+        text-align: left;             /* reads better stacked */
+        white-space: normal;
+        padding-top: 0;
       }
 
       th,
@@ -197,7 +220,7 @@
       <div class="left-header">
         <img src="logo.png" alt="League Logo" class="league-logo" />
 
-        <div>
+        <div class="left-text">
           <h1>Impulse League</h1>
           <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
         </div>
