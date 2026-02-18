@@ -147,9 +147,10 @@
       font-weight: 600;
     }
 
+    /* 8 stat columns now instead of 9 */
     th.stat,
     td.stat {
-      width: calc(70% / 9);
+      width: calc(70% / 8);
     }
 
     tbody tr:hover {
@@ -225,7 +226,6 @@
             <th class="team">Team</th>
             <th class="stat">P</th>
             <th class="stat">W</th>
-            <th class="stat">D</th>
             <th class="stat">L</th>
             <th class="stat">MF</th>
             <th class="stat">MA</th>
@@ -251,11 +251,10 @@
         team: cols[1],
         played: cols[2],
         wins: cols[3],
-        draws: cols[4],
-        losses: cols[5],
-        gf: cols[6],
-        ga: cols[7],
-        gd: cols[8],
+        losses: cols[5],   // skip draws column (index 4)
+        mf: cols[6],
+        ma: cols[7],
+        md: cols[8],
         pts: cols[9],
         colour: cols[10]
       }));
@@ -273,11 +272,10 @@
           <td class="team">${t.team}</td>
           <td class="stat">${t.played}</td>
           <td class="stat">${t.wins}</td>
-          <td class="stat">${t.draws}</td>
           <td class="stat">${t.losses}</td>
-          <td class="stat">${t.gf}</td>
-          <td class="stat">${t.ga}</td>
-          <td class="stat">${t.gd}</td>
+          <td class="stat">${t.mf}</td>
+          <td class="stat">${t.ma}</td>
+          <td class="stat">${t.md}</td>
           <td class="stat"><strong>${t.pts}</strong></td>
         `;
 
