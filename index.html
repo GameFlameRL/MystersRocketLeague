@@ -45,38 +45,21 @@
       gap: 0.4rem;
     }
 
-    /* NEW: left header group (logo + titles) */
+    /* Logo + Title group */
     .left-header {
       display: flex;
       align-items: center;
       gap: 0.8rem;
     }
 
-    /* NEW: logo styling */
     .league-logo {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       object-fit: contain;
-      display: block;
-    }
-
-    .tag {
-      padding: 0.25rem 0.6rem;
-      background: linear-gradient(90deg, #ff0000, #ffd000);
-      border-radius: 0.8rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 220px;
     }
 
     h1 {
       font-size: 1.55rem;
-      margin-top: 0.3rem;
       text-transform: uppercase;
       color: black;
     }
@@ -101,16 +84,10 @@
       box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
-    .table-scroll {
-      overflow: visible;
-    }
-
     table {
       width: 100%;
-      min-width: 0;
       border-collapse: collapse;
       table-layout: fixed;
-      border: none;
     }
 
     thead {
@@ -123,7 +100,6 @@
       font-size: 0.82rem;
       white-space: nowrap;
       text-align: center;
-      border: none;
       color: black;
     }
 
@@ -155,7 +131,6 @@
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
-      padding-right: 0.25rem;
       font-weight: 600;
     }
 
@@ -186,41 +161,18 @@
         margin-bottom: 0.5rem;
       }
 
-      /* NEW: smaller logo on mobile */
-      .left-header {
-        gap: 0.6rem;
-      }
-
       .league-logo {
-        width: 42px;
-        height: 42px;
-      }
-
-      .tag {
-        font-size: 0.58rem;
-        padding: 0.2rem 0.4rem;
-        min-width: 0;
+        width: 46px;
+        height: 46px;
       }
 
       h1 {
         font-size: 1.05rem;
       }
 
-      .subtitle {
-        font-size: 0.68rem;
-      }
-
+      .subtitle,
       .right-meta {
         font-size: 0.68rem;
-      }
-
-      .table-wrapper {
-        border-radius: 0.8rem;
-        margin-top: 0.4rem;
-      }
-
-      table {
-        min-width: 0;
       }
 
       th,
@@ -235,19 +187,16 @@
 <body>
   <main class="page">
     <header>
-      <!-- LEFT SIDE (LOGO + TITLES) -->
       <div class="left-header">
-        <!-- Change logo.png if your filename is different -->
-        <img src="logo.png" alt="Mysters League Logo" class="league-logo" />
+        <!-- Your PNG logo -->
+        <img src="logo.png" alt="League Logo" class="league-logo" />
 
         <div>
-          <div class="tag">Mysters Rocket League</div>
           <h1>Premier League</h1>
           <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
         </div>
       </div>
 
-      <!-- RIGHT SIDE META -->
       <div class="right-meta">
         Season: <strong>1</strong><br />
         Last updated: <strong id="last-updated"></strong>
@@ -255,25 +204,23 @@
     </header>
 
     <section class="table-wrapper">
-      <div class="table-scroll">
-        <table aria-label="Standings">
-          <thead>
-            <tr>
-              <th class="stat">#</th>
-              <th class="team">Team</th>
-              <th class="stat">P</th>
-              <th class="stat">W</th>
-              <th class="stat">D</th>
-              <th class="stat">L</th>
-              <th class="stat">GF</th>
-              <th class="stat">GA</th>
-              <th class="stat">GD</th>
-              <th class="stat">Pts</th>
-            </tr>
-          </thead>
-          <tbody id="league-body"></tbody>
-        </table>
-      </div>
+      <table aria-label="Standings">
+        <thead>
+          <tr>
+            <th class="stat">#</th>
+            <th class="team">Team</th>
+            <th class="stat">P</th>
+            <th class="stat">W</th>
+            <th class="stat">D</th>
+            <th class="stat">L</th>
+            <th class="stat">GF</th>
+            <th class="stat">GA</th>
+            <th class="stat">GD</th>
+            <th class="stat">Pts</th>
+          </tr>
+        </thead>
+        <tbody id="league-body"></tbody>
+      </table>
     </section>
   </main>
 
