@@ -1,340 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Impulse Overdrive</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root{
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.35;
-    }
-    *{ box-sizing:border-box; margin:0; padding:0; }
+<meta charset="UTF-8" />
+<title>Impulse Overdrive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    body{
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding:14px;
-      background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000 100%);
-      color:#0b0f1a;
-    }
+<style>
+:root{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
 
-    /* Outer “frame” like your screenshot */
-    .shell{
-      width:100%;
-      max-width:720px;
-      border-radius:22px;
-      padding:16px;
-      background: linear-gradient(180deg, #334155 0%, #0b1220 100%);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:18px;
+  background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000 100%);
+  color:#000;
+}
 
-    /* Inner card */
-    .card{
-      border-radius:18px;
-      background: rgba(15, 23, 42, 0.45);
-      border: 1px solid rgba(255,255,255,0.07);
-      overflow:hidden;
-    }
+.frame{
+  width:100%;
+  max-width:760px;
+  border-radius:26px;
+  padding:16px;
+  background: linear-gradient(180deg, #334155 0%, #0b1220 100%);
+  box-shadow:0 24px 55px rgba(0,0,0,0.65);
+  border:2px solid rgba(255,255,255,0.05);
+}
 
-    .top{
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px 16px 10px;
-      align-items:flex-start;
-    }
+.card{
+  border-radius:22px;
+  padding:18px 18px 16px;
+  background: linear-gradient(180deg, #2b3a52 0%, #1b2537 100%);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.25);
+}
 
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      min-width:0;
-    }
+.header{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:flex-start;
+  margin-bottom:16px;
+}
 
-    .brand img{
-    width:100px;
-    height:100px;
-    object-fit:contain;
-    flex:0 0 auto;
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55));
-    }
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
 
-    .brandText{ min-width:0; }
+.brand img{
+  width:78px;
+  height:78px;
+  object-fit:contain;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,0.55));
+}
 
-    h1{
-      font-size:1.55rem;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-      color:#0b0f1a;
-      font-weight:900;
-      line-height:1.05;
-    }
+h1{
+  font-size:1.55rem;
+  font-weight:900;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:#000;
+  white-space:nowrap;
+}
 
-    .subtitle{
-      margin-top:6px;
-      font-size:0.86rem;
-      color:#0b0f1a;
-      opacity:0.9;
-    }
+.subtitle{
+  margin-top:6px;
+  font-size:0.9rem;
+  color:#000;
+  opacity:0.85;
+}
 
-    .meta{
-      text-align:right;
-      font-size:0.9rem;
-      color:#0b0f1a;
-      opacity:0.95;
-      line-height:1.5;
-      white-space:nowrap;
-    }
+/* NAVIGATION BUTTONS */
+.nav{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+}
 
-    .meta strong{ font-weight:900; }
+.nav a{
+  text-decoration:none;
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:0.8rem;
+  font-weight:800;
+  letter-spacing:0.05em;
+  background:#1e293b;
+  color:#cbd5e1;
+  border:1px solid rgba(255,255,255,0.15);
+  transition:0.15s ease;
+}
 
-    /* Nav pills under subtitle (same “site”, separate pages) */
-    .nav{
-      margin-top:10px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .nav a{
-      text-decoration:none;
-      padding:6px 12px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:0.82rem;
-      background:#1e3a8a;
-      color:#dbeafe;
-      border:1px solid #3b82f6;
-      transition:0.15s ease;
-    }
-    .nav a:hover{ background:#1e40af; color:#fff; }
-    .nav a.active{
-      background:#3b82f6;
-      color:#0b0f1a;
-      border-color:#60a5fa;
-    }
+.nav a:hover{
+  background:#334155;
+}
 
-    /* Table frame like screenshot */
-    .tableWrap{
-      margin:10px 14px 14px;
-      border-radius:16px;
-      overflow:hidden;
-      background:#0b1220;
-      border: 2px solid rgba(0,0,0,0.55);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
-    }
+.nav a.active{
+  background:#3b82f6;
+  color:#0b1220;
+  border-color:#60a5fa;
+}
 
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      table-layout:fixed;
-    }
+.meta{
+  text-align:right;
+  font-size:0.95rem;
+  color:#000;
+  opacity:0.85;
+  line-height:1.55;
+  white-space:nowrap;
+}
 
-    thead th{
-      background:#111827;
-      color:#0b0f1a;
-      font-size:0.72rem;
-      letter-spacing:0.14em;
-      text-transform:uppercase;
-      padding:10px 8px;
-      border-bottom:1px solid rgba(0,0,0,0.5);
-    }
+.tableFrame{
+  border-radius:18px;
+  overflow:hidden;
+  background:#0b1220;
+  border:2px solid rgba(0,0,0,0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    0 14px 28px rgba(0,0,0,0.45);
+}
 
-    th, td{
-      text-align:center;
-      color:#0b0f1a;
-      padding:10px 8px;
-      font-size:0.9rem;
-      border-right:1px solid rgba(0,0,0,0.28);
-    }
-    th:last-child, td:last-child{ border-right:none; }
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  table-layout:fixed;
+}
 
-    /* Column sizing close to screenshot */
-    .col-pos{ width:58px; }
-    .col-team{ width:32%; text-align:left; padding-left:12px; font-weight:900; }
-    .col-stat{ width:calc((68% - 58px)/7); } /* P W L MF MA MD PTS */
+thead th{
+  background:#1f2a3a;
+  color:#000;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  font-size:0.75rem;
+  font-weight:900;
+  padding:12px 10px;
+  border-bottom:1px solid rgba(0,0,0,0.6);
+}
 
-    tbody td{ border-bottom:1px solid rgba(0,0,0,0.22); }
-    tbody tr:last-child td{ border-bottom:none; }
+th, td{
+  text-align:center;
+  color:#000;
+  font-size:0.92rem;
+  padding:12px 10px;
+  border-right:1px solid rgba(0,0,0,0.35);
+}
+th:last-child, td:last-child{border-right:none;}
+tbody td{border-bottom:1px solid rgba(0,0,0,0.25);}
+tbody tr:last-child td{border-bottom:none;}
 
-    tbody tr:hover{ filter:brightness(0.97); }
+.c-pos{width:64px;}
+.c-team{width:34%;text-align:left;font-weight:900;padding-left:14px;}
+.c-stat{width:calc((66% - 64px)/7);}
 
-    .pts strong{ font-weight:900; }
-
-    /* Status row */
-    .status td{
-      background:#0b1220;
-      color:#dbeafe;
-      text-align:left;
-      padding:12px;
-      font-weight:800;
-      border-right:none;
-    }
-
-    @media (max-width:640px){
-      .shell{ padding:12px; border-radius:18px; }
-      .top{ padding:12px 12px 8px; }
-      .brand img{ width:52px; height:52px; }
-      h1{ font-size:1.15rem; }
-      .subtitle{ font-size:0.78rem; }
-      .meta{ font-size:0.78rem; }
-      th, td{ padding:8px 6px; font-size:0.78rem; }
-      thead th{ font-size:0.62rem; }
-      .col-team{ width:38%; }
-      .col-pos{ width:52px; }
-    }
-  </style>
+</style>
 </head>
 
 <body>
-  <main class="shell">
-    <section class="card">
-      <div class="top">
-        <div class="brand">
-          <img src="logo.png" alt="Impulse Logo" />
-          <div class="brandText">
-            <h1>Impulse Overdrive</h1>
-            <div class="subtitle">Live standings will be updated ASAP by GameFlame</div>
+<main class="frame">
+<section class="card">
 
-            <nav class="nav" aria-label="League navigation">
-              <a class="active" href="index.html">Impulse Overdrive</a>
-              <a href="contenders.html">Impulse Contenders</a>
-            </nav>
-          </div>
-        </div>
+<div class="header">
+  <div class="brand">
+    <img src="logo.png" alt="Impulse Logo">
+    <div>
+      <h1>Impulse Overdrive</h1>
+      <div class="subtitle">Live standings will be updated ASAP by GameFlame</div>
 
-        <div class="meta">
-          Season: <strong>1</strong><br />
-          Last updated: <strong id="last-updated">—</strong>
-        </div>
+      <div class="nav">
+        <a class="active" href="index.html">Overdrive</a>
+        <a href="contenders.html">Contenders</a>
       </div>
+    </div>
+  </div>
 
-      <div class="tableWrap">
-        <table aria-label="Impulse Overdrive Standings">
-          <thead>
-            <tr>
-              <th class="col-pos">#</th>
-              <th class="col-team">TEAM</th>
-              <th class="col-stat">P</th>
-              <th class="col-stat">W</th>
-              <th class="col-stat">L</th>
-              <th class="col-stat">MF</th>
-              <th class="col-stat">MA</th>
-              <th class="col-stat">MD</th>
-              <th class="col-stat">PTS</th>
-            </tr>
-          </thead>
-          <tbody id="league-body">
-            <tr class="status"><td colspan="9">Loading standings…</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+  <div class="meta">
+    Season: <strong>1</strong><br>
+    Last updated: <strong id="last-updated">—</strong>
+  </div>
+</div>
 
-  <script>
-    const SHEET_CSV_URL =
-      "https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=829195735";
+<div class="tableFrame">
+<table>
+<thead>
+<tr>
+<th class="c-pos">#</th>
+<th class="c-team">TEAM</th>
+<th class="c-stat">P</th>
+<th class="c-stat">W</th>
+<th class="c-stat">L</th>
+<th class="c-stat">MF</th>
+<th class="c-stat">MA</th>
+<th class="c-stat">MD</th>
+<th class="c-stat">PTS</th>
+</tr>
+</thead>
+<tbody id="league-body"></tbody>
+</table>
+</div>
 
-    function ordinal(n){
-      const s = ["th","st","nd","rd"], v = n % 100;
-      return n + (s[(v - 20) % 10] || s[v] || s[0]);
-    }
+</section>
+</main>
 
-    function toInt(v){
-      const n = parseInt(String(v ?? "").trim(), 10);
-      return Number.isFinite(n) ? n : 0;
-    }
+<script>
+const SHEET_CSV_URL="https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=829195735";
 
-    // Simple CSV split (works if your sheet has no commas-in-fields)
-    function parseCsv(txt){
-      const rows = txt.trim().replace(/\r/g,"").split("\n").map(r => r.split(","));
-      const [, ...data] = rows;
+function parseCsv(txt){
+const rows=txt.trim().replace(/\r/g,"").split("\n").map(r=>r.split(","));
+const[, ...data]=rows;
+return data.filter(r=>r[1]).map(r=>({
+pos:r[0],team:r[1],played:r[2],wins:r[3],losses:r[4],
+mf:r[5],ma:r[6],md:r[7],pts:r[8],colour:r[9]
+}));
+}
 
-      // Expected columns (like your screenshot sheet):
-      // A Pos, B Team, C P, D W, E L, F MF, G MA, H MD, I Pts, J Colour
-      return data
-        .filter(r => (r[1] ?? "").trim() !== "")
-        .map(r => ({
-          pos: r[0],
-          team: r[1],
-          played: r[2],
-          wins: r[3],
-          losses: r[4],
-          mf: r[5],
-          ma: r[6],
-          md: r[7],
-          pts: r[8],
-          colour: r[9]
-        }));
-    }
+function renderTable(teams){
+const tbody=document.getElementById("league-body");
+tbody.innerHTML="";
+teams.forEach((t,i)=>{
+const tr=document.createElement("tr");
+tr.innerHTML=`
+<td>${t.pos||i+1}</td>
+<td class="c-team">${t.team}</td>
+<td>${t.played}</td>
+<td>${t.wins}</td>
+<td>${t.losses}</td>
+<td>${t.mf}</td>
+<td>${t.ma}</td>
+<td>${t.md}</td>
+<td><strong>${t.pts}</strong></td>`;
+if(t.colour){
+[...tr.children].forEach(td=>td.style.backgroundColor=t.colour);
+}
+tbody.appendChild(tr);
+});
+}
 
-    function setStatus(msg){
-      document.getElementById("league-body").innerHTML =
-        `<tr class="status"><td colspan="9">${msg}</td></tr>`;
-    }
+async function load(){
+const res=await fetch(SHEET_CSV_URL+"&_ts="+Date.now(),{cache:"no-store"});
+const text=await res.text();
+renderTable(parseCsv(text));
+document.getElementById("last-updated").textContent=new Date().toLocaleString();
+}
 
-    function renderTable(teams){
-      const tbody = document.getElementById("league-body");
-      tbody.innerHTML = "";
+load();
+</script>
 
-      teams.forEach((t, idx) => {
-        const tr = document.createElement("tr");
-
-        const posNum = toInt(t.pos) || (idx + 1);
-        const posText = ordinal(posNum);
-
-        tr.innerHTML = `
-          <td class="col-pos"><strong>${posText}</strong></td>
-          <td class="col-team">${t.team}</td>
-          <td class="col-stat">${t.played}</td>
-          <td class="col-stat">${t.wins}</td>
-          <td class="col-stat">${t.losses}</td>
-          <td class="col-stat">${t.mf}</td>
-          <td class="col-stat">${t.ma}</td>
-          <td class="col-stat">${t.md}</td>
-          <td class="col-stat pts"><strong>${t.pts}</strong></td>
-        `;
-
-        if (t.colour) {
-          [...tr.children].forEach(td => td.style.backgroundColor = t.colour);
-        }
-
-        tbody.appendChild(tr);
-      });
-    }
-
-    async function load(){
-      setStatus("Loading standings…");
-
-      try{
-        const res = await fetch(SHEET_CSV_URL + "&_ts=" + Date.now(), { cache: "no-store" });
-        if(!res.ok) throw new Error("Fetch failed");
-        const text = await res.text();
-        const teams = parseCsv(text);
-
-        if(!teams.length){
-          setStatus("No standings found yet.");
-        } else {
-          renderTable(teams);
-        }
-
-        document.getElementById("last-updated").textContent =
-          new Date().toLocaleString();
-      } catch(e){
-        console.error(e);
-        setStatus("Couldn’t load the table. Check sheet sharing + link.");
-        document.getElementById("last-updated").textContent =
-          new Date().toLocaleString();
-      }
-    }
-
-    load();
-  </script>
 </body>
 </html>
-
