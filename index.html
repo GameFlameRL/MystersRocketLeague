@@ -159,27 +159,10 @@ tbody tr:last-child td{border-bottom:none;}
 .c-team{width:34%;text-align:left;font-weight:900;padding-left:14px;}
 .c-stat{width:calc((66% - 64px)/7);}
 
-/* ===== Mobile Stability Patch ===== */
+/* ===== Mobile Fit (No Horizontal Scroll) ===== */
 
-/* Safe area support for modern phones */
-body{
-  padding-left: calc(18px + env(safe-area-inset-left));
-  padding-right: calc(18px + env(safe-area-inset-right));
-  padding-top: calc(18px + env(safe-area-inset-top));
-  padding-bottom: calc(18px + env(safe-area-inset-bottom));
-}
+@media (max-width:640px){
 
-/* Allow horizontal scroll instead of squashing table */
-.tableFrame{
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-}
-
-table{
-  min-width:720px;
-}
-
-@media (max-width:560px){
   .header{
     flex-direction:column;
     align-items:flex-start;
@@ -193,14 +176,28 @@ table{
   }
 
   .brand img{
-    width:64px;
-    height:64px;
+    width:60px;
+    height:60px;
   }
 
   h1{
     white-space:normal;
-    font-size:1.25rem;
+    font-size:1.2rem;
   }
+
+  thead th{
+    font-size:0.62rem;
+    padding:8px 4px;
+    letter-spacing:0.08em;
+  }
+
+  td{
+    font-size:0.72rem;
+    padding:8px 4px;
+  }
+
+  .c-pos{width:40px;}
+  .c-team{width:32%;padding-left:8px;}
 }
 </style>
 </head>
