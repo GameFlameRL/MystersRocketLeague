@@ -12,11 +12,7 @@
       color: black;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
@@ -41,7 +37,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       margin-bottom: 0.6rem;
       gap: 0.8rem;
     }
@@ -50,25 +46,18 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      min-width: 0;
     }
 
     .league-logo {
       width: 95px;
       height: 95px;
       object-fit: contain;
-      flex: 0 0 auto;
-    }
-
-    .left-text {
-      min-width: 0;
     }
 
     h1 {
       font-size: 1.55rem;
       text-transform: uppercase;
       color: black;
-      white-space: nowrap;
     }
 
     .subtitle {
@@ -78,21 +67,33 @@
     }
 
     .right-meta {
-      margin-left: auto;
       text-align: right;
       font-size: 0.85rem;
       color: black;
       line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      flex: 0 0 auto;
-      white-space: nowrap;
-      padding-top: 0.25rem;
     }
 
-    .right-meta strong {
-      font-weight: 700;
+    .nav {
+      margin-top: 0.4rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-right: 0.4rem;
+      background: #1e3a8a;
+      color: #dbeafe;
+      font-weight: 600;
+      border: 1px solid #3b82f6;
+      transition: 0.15s ease;
+    }
+
+    .nav a:hover { background: #1e40af; color: white; }
+
+    .nav a.active {
+      background: #3b82f6;
+      color: black;
     }
 
     .table-wrapper {
@@ -103,18 +104,11 @@
       box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 
-    thead {
-      background: #1e293b;
-    }
+    thead { background: #1e293b; }
 
-    th,
-    td {
+    th, td {
       padding: 0.4rem 0.22rem;
       font-size: 0.82rem;
       white-space: nowrap;
@@ -128,79 +122,19 @@
       letter-spacing: 0.12em;
     }
 
-    thead tr {
-      border-bottom: 1px solid rgba(0,0,0,0.45);
-    }
-
-    tbody tr {
-      border-bottom: 1px solid rgba(0,0,0,0.3);
-    }
-
-    tbody tr:last-child {
-      border-bottom: none;
-    }
-
-    th + th,
-    td + td {
-      border-left: 1px solid rgba(0,0,0,0.25);
-    }
-
-    th.team,
-    td.team {
+    th.team, td.team {
       width: 30%;
       text-align: left;
       padding-left: 0.25rem;
       font-weight: 600;
     }
 
-    /* 8 stat columns */
-    th.stat,
-    td.stat {
+    th.stat, td.stat {
       width: calc(70% / 8);
     }
 
-    tbody tr:hover {
-      filter: brightness(0.95);
-      transition: 0.1s ease;
-    }
+    tbody tr:hover { filter: brightness(0.95); transition: 0.1s ease; }
 
-    @media (max-width: 640px) {
-      body { padding: 0.5rem; }
-
-      .page {
-        padding: 0.7rem 0.7rem 0.6rem;
-        border-radius: 0.9rem;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .league-logo {
-        width: 64px;
-        height: 64px;
-      }
-
-      h1 {
-        font-size: 1.05rem;
-        white-space: normal;
-      }
-
-      .subtitle,
-      .right-meta {
-        font-size: 0.68rem;
-      }
-
-      th,
-      td {
-        padding: 0.24rem 0.18rem;
-        font-size: 0.68rem;
-      }
-    }
   </style>
 </head>
 
@@ -209,21 +143,25 @@
     <header>
       <div class="left-header">
         <img src="logo.png" alt="League Logo" class="league-logo" />
-
-        <div class="left-text">
+        <div>
           <h1>Impulse League</h1>
           <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
+
+          <div class="nav">
+            <a href="index.html" class="active">Impulse League</a>
+            <a href="b-league.html">B League</a>
+          </div>
         </div>
       </div>
 
       <div class="right-meta">
-        <div>Season: <strong>1</strong></div>
-        <div>Last updated: <strong id="last-updated"></strong></div>
+        Season: <strong>1</strong><br />
+        Last updated: <strong id="last-updated"></strong>
       </div>
     </header>
 
     <section class="table-wrapper">
-      <table aria-label="Standings">
+      <table>
         <thead>
           <tr>
             <th class="stat">#</th>
@@ -247,12 +185,9 @@
       "https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=829195735";
 
     function parseCsv(text) {
-      // handle Windows newlines
       const rows = text.trim().replace(/\r/g, "").split("\n").map(r => r.split(","));
       const [header, ...data] = rows;
 
-      // CSV now includes Position as first column
-      // A Position, B Team, C Played, D Wins, E Losses, F MF, G MA, H MD, I Pts, J Colour
       return data.map(cols => ({
         pos: cols[0],
         team: cols[1],
@@ -287,7 +222,7 @@
         `;
 
         if (t.colour) {
-          Array.from(row.children).forEach((cell) => {
+          Array.from(row.children).forEach(cell => {
             cell.style.backgroundColor = t.colour;
           });
         }
@@ -297,11 +232,9 @@
     }
 
     async function loadLeagueTable() {
-      const res = await fetch(SHEET_CSV_URL);
+      const res = await fetch(SHEET_CSV_URL + "&_ts=" + Date.now(), { cache: "no-store" });
       const text = await res.text();
-      const teams = parseCsv(text);
-      renderTable(teams);
-
+      renderTable(parseCsv(text));
       document.getElementById("last-updated").textContent =
         new Date().toLocaleString();
     }
