@@ -2,231 +2,231 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Impulse Contenders League Table</title>
+  <title>Impulse Contenders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
-    :root {
+    :root{
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.4;
-      color: black;
+      line-height: 1.35;
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:14px;
+      background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000 100%);
+      color:#0b0f1a;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    .shell{
+      width:100%;
+      max-width:720px;
+      border-radius:22px;
+      padding:16px;
+      background: linear-gradient(180deg, #334155 0%, #0b1220 100%);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      background: radial-gradient(circle at top, #0f172a 0%, #020617 50%, #000 100%);
-      padding: 0.75rem;
-      overflow-x: hidden;
+    .card{
+      border-radius:18px;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow:hidden;
     }
 
-    .page {
-      width: 100%;
-      max-width: 650px;
-      background: #1e293b;
-      border-radius: 1.2rem;
-      padding: 1rem 1rem 0.9rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+    .top{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 16px 10px;
+      align-items:flex-start;
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: 0.6rem;
-      gap: 0.4rem;
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      min-width:0;
     }
 
-    .tag {
-      padding: 0.25rem 0.6rem;
-      background: linear-gradient(90deg, #ff0000, #ffd000);
-      border-radius: 0.8rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 220px;
+    .brand img{
+      width:62px;
+      height:62px;
+      object-fit:contain;
+      flex:0 0 auto;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.45));
     }
 
-    h1 {
-      font-size: 1.55rem;
-      margin-top: 0.3rem;
-      text-transform: uppercase;
-      color: black;
+    .brandText{ min-width:0; }
+
+    h1{
+      font-size:1.55rem;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:#0b0f1a;
+      font-weight:900;
+      line-height:1.05;
     }
 
-    .subtitle {
-      font-size: 0.82rem;
-      color: black;
+    .subtitle{
+      margin-top:6px;
+      font-size:0.86rem;
+      color:#0b0f1a;
+      opacity:0.9;
     }
 
-    .right-meta {
-      text-align: right;
-      font-size: 0.8rem;
-      color: black;
+    .meta{
+      text-align:right;
+      font-size:0.9rem;
+      color:#0b0f1a;
+      opacity:0.95;
+      line-height:1.5;
+      white-space:nowrap;
     }
 
-    /* CLEAN BLUE NAV BUTTONS */
-    .nav {
-      width: 100%;
-      margin-top: 0.25rem;
-      margin-bottom: 0.35rem;
-      font-size: 0.8rem;
+    .meta strong{ font-weight:900; }
+
+    .nav{
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .nav a{
+      text-decoration:none;
+      padding:6px 12px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:0.82rem;
+      background:#1e3a8a;
+      color:#dbeafe;
+      border:1px solid #3b82f6;
+      transition:0.15s ease;
+    }
+    .nav a:hover{ background:#1e40af; color:#fff; }
+    .nav a.active{
+      background:#3b82f6;
+      color:#0b0f1a;
+      border-color:#60a5fa;
     }
 
-    .nav a {
-      text-decoration: none;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      margin-right: 0.4rem;
-
-      background: #1e3a8a;
-      color: #dbeafe;
-      font-weight: 600;
-      transition: 0.15s ease;
-      border: 1px solid #3b82f6;
+    .tableWrap{
+      margin:10px 14px 14px;
+      border-radius:16px;
+      overflow:hidden;
+      background:#0b1220;
+      border: 2px solid rgba(0,0,0,0.55);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
     }
 
-    .nav a:hover {
-      background: #1e40af;
-      color: white;
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      table-layout:fixed;
     }
 
-    .nav a.active {
-      background: #3b82f6;
-      color: black;
-      border-color: #60a5fa;
+    thead th{
+      background:#111827;
+      color:#0b0f1a;
+      font-size:0.72rem;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      padding:10px 8px;
+      border-bottom:1px solid rgba(0,0,0,0.5);
     }
 
-    .table-wrapper {
-      margin-top: 0.5rem;
-      border-radius: 1rem;
-      overflow: hidden;
-      background: #0f172a;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.45);
+    th, td{
+      text-align:center;
+      color:#0b0f1a;
+      padding:10px 8px;
+      font-size:0.9rem;
+      border-right:1px solid rgba(0,0,0,0.28);
+    }
+    th:last-child, td:last-child{ border-right:none; }
+
+    .col-pos{ width:58px; }
+    .col-team{ width:32%; text-align:left; padding-left:12px; font-weight:900; }
+    .col-stat{ width:calc((68% - 58px)/7); }
+
+    tbody td{ border-bottom:1px solid rgba(0,0,0,0.22); }
+    tbody tr:last-child td{ border-bottom:none; }
+
+    tbody tr:hover{ filter:brightness(0.97); }
+
+    .pts strong{ font-weight:900; }
+
+    .status td{
+      background:#0b1220;
+      color:#dbeafe;
+      text-align:left;
+      padding:12px;
+      font-weight:800;
+      border-right:none;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    thead {
-      background: #1e293b;
-    }
-
-    th, td {
-      padding: 0.4rem 0.22rem;
-      font-size: 0.82rem;
-      white-space: nowrap;
-      text-align: center;
-      border: none;
-      color: black;
-    }
-
-    th {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    thead tr {
-      border-bottom: 1px solid rgba(0,0,0,0.45);
-    }
-
-    tbody tr {
-      border-bottom: 1px solid rgba(0,0,0,0.3);
-    }
-
-    tbody tr:last-child {
-      border-bottom: none;
-    }
-
-    th + th, td + td {
-      border-left: 1px solid rgba(0,0,0,0.25);
-    }
-
-    th.team, td.team {
-      width: 30%;
-      text-align: left;
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
-      font-weight: 600;
-    }
-
-    th.stat, td.stat {
-      width: calc(70% / 9);
-    }
-
-    tbody tr:hover {
-      filter: brightness(0.95);
-      transition: 0.1s ease;
-    }
-
-    /* MOBILE */
-    @media (max-width: 640px) {
-      body { padding: 0.5rem; }
-      .page { padding: 0.7rem 0.7rem 0.6rem; border-radius: 0.9rem; }
-      header { flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
-      .tag { font-size: 0.58rem; padding: 0.2rem 0.4rem; min-width: 0; }
-      h1 { font-size: 1.05rem; }
-      .subtitle, .right-meta { font-size: 0.68rem; }
-      th, td { padding: 0.24rem 0.18rem; font-size: 0.68rem; }
-      .nav { font-size: 0.72rem; }
+    @media (max-width:640px){
+      .shell{ padding:12px; border-radius:18px; }
+      .top{ padding:12px 12px 8px; }
+      .brand img{ width:52px; height:52px; }
+      h1{ font-size:1.15rem; }
+      .subtitle{ font-size:0.78rem; }
+      .meta{ font-size:0.78rem; }
+      th, td{ padding:8px 6px; font-size:0.78rem; }
+      thead th{ font-size:0.62rem; }
+      .col-team{ width:38%; }
+      .col-pos{ width:52px; }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <header>
-      <div>
-        <div class="tag">Mysters Rocket League</div>
-        <h1>Impulse Contenders</h1>
-        <p class="subtitle">Live standings will be updated ASAP by GameFlame</p>
+  <main class="shell">
+    <section class="card">
+      <div class="top">
+        <div class="brand">
+          <img src="logo.png" alt="Impulse Logo" />
+          <div class="brandText">
+            <h1>Impulse Contenders</h1>
+            <div class="subtitle">Live standings will be updated ASAP by GameFlame</div>
 
-        <div class="nav">
-          <a href="index.html">Impulse League</a>
-          <a href="contenders.html" class="active">Impulse Contenders</a>
+            <nav class="nav" aria-label="League navigation">
+              <a href="index.html">Impulse Overdrive</a>
+              <a class="active" href="contenders.html">Impulse Contenders</a>
+            </nav>
+          </div>
+        </div>
+
+        <div class="meta">
+          Season: <strong>1</strong><br />
+          Last updated: <strong id="last-updated">—</strong>
         </div>
       </div>
 
-      <div class="right-meta">
-        Season: <strong>1</strong><br />
-        Last updated: <strong id="last-updated"></strong>
+      <div class="tableWrap">
+        <table aria-label="Impulse Contenders Standings">
+          <thead>
+            <tr>
+              <th class="col-pos">#</th>
+              <th class="col-team">TEAM</th>
+              <th class="col-stat">P</th>
+              <th class="col-stat">W</th>
+              <th class="col-stat">L</th>
+              <th class="col-stat">MF</th>
+              <th class="col-stat">MA</th>
+              <th class="col-stat">MD</th>
+              <th class="col-stat">PTS</th>
+            </tr>
+          </thead>
+          <tbody id="league-body">
+            <tr class="status"><td colspan="9">Loading standings…</td></tr>
+          </tbody>
+        </table>
       </div>
-    </header>
-
-    <section class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th class="stat">#</th>
-            <th class="team">Team</th>
-            <th class="stat">P</th>
-            <th class="stat">W</th>
-            <th class="stat">D</th>
-            <th class="stat">L</th>
-            <th class="stat">GF</th>
-            <th class="stat">GA</th>
-            <th class="stat">GD</th>
-            <th class="stat">Pts</th>
-          </tr>
-        </thead>
-        <tbody id="league-body"></tbody>
-      </table>
     </section>
   </main>
 
@@ -234,57 +234,94 @@
     const SHEET_CSV_URL =
       "https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=629194466";
 
-    function parseCsv(txt) {
-      const rows = txt.trim().split("\n").map(r => r.split(","));
-      const [, ...data] = rows;
-      return data.map(c => ({
-        pos: c[0],
-        team: c[1],
-        played: c[2],
-        wins: c[3],
-        draws: c[4],
-        losses: c[5],
-        gf: c[6],
-        ga: c[7],
-        gd: c[8],
-        pts: c[9],
-        colour: c[10]
-      }));
+    function ordinal(n){
+      const s = ["th","st","nd","rd"], v = n % 100;
+      return n + (s[(v - 20) % 10] || s[v] || s[0]);
     }
 
-    function renderTable(teams) {
+    function toInt(v){
+      const n = parseInt(String(v ?? "").trim(), 10);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function parseCsv(txt){
+      const rows = txt.trim().replace(/\r/g,"").split("\n").map(r => r.split(","));
+      const [, ...data] = rows;
+
+      return data
+        .filter(r => (r[1] ?? "").trim() !== "")
+        .map(r => ({
+          pos: r[0],
+          team: r[1],
+          played: r[2],
+          wins: r[3],
+          losses: r[4],
+          mf: r[5],
+          ma: r[6],
+          md: r[7],
+          pts: r[8],
+          colour: r[9]
+        }));
+    }
+
+    function setStatus(msg){
+      document.getElementById("league-body").innerHTML =
+        `<tr class="status"><td colspan="9">${msg}</td></tr>`;
+    }
+
+    function renderTable(teams){
       const tbody = document.getElementById("league-body");
       tbody.innerHTML = "";
 
-      teams.forEach(t => {
+      teams.forEach((t, idx) => {
         const tr = document.createElement("tr");
+
+        const posNum = toInt(t.pos) || (idx + 1);
+        const posText = ordinal(posNum);
+
         tr.innerHTML = `
-          <td class="stat">${t.pos}</td>
-          <td class="team">${t.team}</td>
-          <td class="stat">${t.played}</td>
-          <td class="stat">${t.wins}</td>
-          <td class="stat">${t.draws}</td>
-          <td class="stat">${t.losses}</td>
-          <td class="stat">${t.gf}</td>
-          <td class="stat">${t.ga}</td>
-          <td class="stat">${t.gd}</td>
-          <td class="stat"><strong>${t.pts}</strong></td>
+          <td class="col-pos"><strong>${posText}</strong></td>
+          <td class="col-team">${t.team}</td>
+          <td class="col-stat">${t.played}</td>
+          <td class="col-stat">${t.wins}</td>
+          <td class="col-stat">${t.losses}</td>
+          <td class="col-stat">${t.mf}</td>
+          <td class="col-stat">${t.ma}</td>
+          <td class="col-stat">${t.md}</td>
+          <td class="col-stat pts"><strong>${t.pts}</strong></td>
         `;
 
         if (t.colour) {
-          [...tr.children].forEach(td => td.style.background = t.colour);
+          [...tr.children].forEach(td => td.style.backgroundColor = t.colour);
         }
 
         tbody.appendChild(tr);
       });
     }
 
-    async function load() {
-      const res = await fetch(SHEET_CSV_URL + "&_ts=" + Date.now(), { cache: "no-store" });
-      const text = await res.text();
-      renderTable(parseCsv(text));
-      document.getElementById("last-updated").textContent =
-        new Date().toLocaleString();
+    async function load(){
+      setStatus("Loading standings…");
+
+      try{
+        const res = await fetch(SHEET_CSV_URL + "&_ts=" + Date.now(), { cache: "no-store" });
+        if(!res.ok) throw new Error("Fetch failed");
+        const text = await res.text();
+        const teams = parseCsv(text);
+
+        if(!teams.length){
+          setStatus("No standings found yet.");
+        } else {
+          renderTable(teams);
+        }
+
+        document.getElementById("last-updated").textContent =
+          new Date().toLocaleString();
+      } catch(e){
+        console.error(e);
+        setStatus("Couldn’t load the table. Check sheet sharing + link.");
+        document.getElementById("last-updated").textContent =
+          new Date().toLocaleString();
+      }
     }
 
     load();
