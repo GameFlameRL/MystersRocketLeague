@@ -76,7 +76,6 @@ h1{
   opacity:0.85;
 }
 
-/* NAVIGATION BUTTONS */
 .nav{
   margin-top:10px;
   display:flex;
@@ -151,6 +150,7 @@ th, td{
   padding:12px 10px;
   border-right:1px solid rgba(0,0,0,0.35);
 }
+
 th:last-child, td:last-child{border-right:none;}
 tbody td{border-bottom:1px solid rgba(0,0,0,0.25);}
 tbody tr:last-child td{border-bottom:none;}
@@ -159,45 +159,44 @@ tbody tr:last-child td{border-bottom:none;}
 .c-team{width:34%;text-align:left;font-weight:900;padding-left:14px;}
 .c-stat{width:calc((66% - 64px)/7);}
 
-/* ===== Mobile Fit (No Horizontal Scroll) ===== */
-
 @media (max-width:640px){
 
-  .header{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:12px;
-  }
+.header{
+flex-direction:column;
+align-items:flex-start;
+gap:12px;
+}
 
-  .meta{
-    text-align:left;
-    white-space:normal;
-    width:100%;
-  }
+.meta{
+text-align:left;
+white-space:normal;
+width:100%;
+}
 
-  .brand img{
-    width:60px;
-    height:60px;
-  }
+.brand img{
+width:60px;
+height:60px;
+}
 
-  h1{
-    white-space:normal;
-    font-size:1.2rem;
-  }
+h1{
+white-space:normal;
+font-size:1.2rem;
+}
 
-  thead th{
-    font-size:0.62rem;
-    padding:8px 4px;
-    letter-spacing:0.08em;
-  }
+thead th{
+font-size:0.62rem;
+padding:8px 4px;
+letter-spacing:0.08em;
+}
 
-  td{
-    font-size:0.72rem;
-    padding:8px 4px;
-  }
+td{
+font-size:0.72rem;
+padding:8px 4px;
+}
 
-  .c-pos{width:40px;}
-  .c-team{width:32%;padding-left:8px;}
+.c-pos{width:40px;}
+.c-team{width:32%;padding-left:8px;}
+
 }
 </style>
 </head>
@@ -207,23 +206,24 @@ tbody tr:last-child td{border-bottom:none;}
 <section class="card">
 
 <div class="header">
-  <div class="brand">
-    <img src="logo.png" alt="Impulse Logo">
-    <div>
-      <h1>Impulse Overdrive</h1>
-      <div class="subtitle">Live standings will be updated ASAP by GameFlame</div>
+<div class="brand">
+<img src="logo.png" alt="Impulse Logo">
+<div>
+<h1>Impulse Overdrive</h1>
+<div class="subtitle">Live standings will be updated ASAP by GameFlame</div>
 
-      <div class="nav">
-        <a class="active" href="index.html">Overdrive</a>
-        <a href="contenders.html">Contenders</a>
-      </div>
-    </div>
-  </div>
+<div class="nav">
+<a class="active" href="index.html">Overdrive</a>
+<a href="catalyst.html">Catalyst</a>
+<a href="contenders.html">Contenders</a>
+</div>
+</div>
+</div>
 
-  <div class="meta">
-    Season: <strong>1</strong><br>
-    Last updated: <strong id="last-updated">—</strong>
-  </div>
+<div class="meta">
+Season: <strong>1</strong><br>
+Last updated: <strong id="last-updated">—</strong>
+</div>
 </div>
 
 <div class="tableFrame">
@@ -249,6 +249,7 @@ tbody tr:last-child td{border-bottom:none;}
 </main>
 
 <script>
+
 const SHEET_CSV_URL="https://docs.google.com/spreadsheets/d/1ilDa0ZleooN3OBruvtOqF9Ym1CitowFjaLCk1GiYiNc/export?format=csv&gid=829195735";
 
 function parseCsv(txt){
@@ -290,6 +291,7 @@ document.getElementById("last-updated").textContent=new Date().toLocaleString();
 }
 
 load();
+
 </script>
 
 </body>
